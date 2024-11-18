@@ -1,0 +1,60 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.dibuixPenjat img {
+    width: 200px;
+    margin: 15px 0;
+}
+
+.contenedorParaulaSecreta {
+    margin: 10px 0;
+    display: flex;
+    gap: 10px;
+}
+
+#teclat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fila {
+    display: flex;
+}
+
+.tecla {
+    border: 1px solid grey;
+    padding: 5px;
+    background-color: white;
+}
+
+.seleccionat {
+    background-color: lightslategrey;
+}
+
+.correcta {
+    background-color: rgb(0, 240, 52);
+}
+
+.incorrecta {
+    background-color: red;
+}
+
+
+

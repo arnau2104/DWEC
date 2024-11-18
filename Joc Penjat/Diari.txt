@@ -1,0 +1,5 @@
+Dia 1:
+He creat els events listeners de quan premem una tecla i tambe he creat el html i els seus estils
+
+Dia 2:
+He creat la funcio per comprobar si la lletra espitjada es correcte, tambe he creat la funcio per comporobar si hem guanyat la partida i la del temporitzador.

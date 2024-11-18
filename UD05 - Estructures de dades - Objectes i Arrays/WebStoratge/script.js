@@ -20,15 +20,15 @@ let factura = {
 };
 
 guardarLS.addEventListener('click', function(){
-    localStorage.setItem('diHola', diHola);
-    //  localStorage.setItem('diAdios', diAdios);
-    // localStorage.setItem('numeros', JSON.stringify(numeros));
-    localStorage.setItem('factura', JSON.stringify(factura));
+    sessionStorage.setItem('diHola', diHola);
+    //  sessionStorage.setItem('diAdios', diAdios);
+    // sessionStorage.setItem('numeros', JSON.stringify(numeros));
+    sessionStorage.setItem('factura', JSON.stringify(factura));
 });
 
 recuperarLS.addEventListener('click', function(){
-//    let lsDiHola =  localStorage.getItem('diHola');
-//    let lsDiAdios = localStorage.getItem('diAdios');
+//    let lsDiHola =  sessionStorage.getItem('diHola');
+//    let lsDiAdios = sessionStorage.getItem('diAdios');
 //    if(lsDiHola){
 //     valorLS.innerText= lsDiHola + lsDiAdios;
     
@@ -38,9 +38,9 @@ recuperarLS.addEventListener('click', function(){
     
 //    };
 
-let lsNumeros = localStorage.getItem('numeros');
+let lsNumeros = sessionStorage.getItem('numeros');
 lsNumeros = JSON.parse(lsNumeros);
-let lsFactura = JSON.parse(localStorage.getItem('factura'));
+let lsFactura = JSON.parse(sessionStorage.getItem('factura'));
 console.log(lsNumeros);
 console.log(typeof lsNumeros);
 console.log(lsFactura);
@@ -49,14 +49,15 @@ valorLS.innerText =  lsFactura;
 });
 
 netejarLS.addEventListener('click', function(){
-    localStorage.clear();
+    sessionStorage.clear();
+    valorLS.innerText='';
 });
 
 removeItemLS.addEventListener('click',function(){
-    localStorage.removeItem('factura');
+    sessionStorage.removeItem('factura');
 });
 
 lengthLS.addEventListener('click', function(){
-    console.log(localStorage.length);
+    console.log(sessionStorage.length);
 })
 
