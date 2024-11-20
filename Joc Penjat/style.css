@@ -40,13 +40,21 @@ h1 {
 
 .tecla {
     border: 1px solid grey;
-    padding: 5px;
+    padding: 10px;
     background-color: white;
 }
 
-.seleccionat {
+
+.tecla:hover {
+    cursor: pointer;
+    scale: 1.2;
     background-color: lightslategrey;
+    opacity: 70%;
 }
+
+/* .seleccionat {
+    background-color: lightslategrey;
+} */
 
 .correcta {
     background-color: rgb(0, 240, 52);
@@ -56,5 +64,89 @@ h1 {
     background-color: red;
 }
 
+.temps {
+    font-size: 30px;
+}
 
+.rankingResultats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+.podium {
+    display: flex;
+    align-content: center;
+}
+
+.escalo-podium {
+    background-color: white;
+    margin: 5px;
+    width: 50px;
+    height: 100px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+#segon {
+    height: 80px;
+    display: flex;
+    align-self: flex-end;
+}
+
+#segon > div {
+    border-radius: 70%;
+    background-color: #BEBEBE;
+    padding: 10px;
+}
+
+#primer > div {
+    border-radius: 70%;
+    background-color: #FFDF00;
+    padding: 10px;
+}
+
+#tercer > div {
+    border-radius: 70%;
+    background-color: #bf8970;
+    padding: 10px;
+}
+
+#tercer {
+    height: 70px;
+    display: flex;
+    align-self: flex-end;
+}
+
+.top10 {
+    background-color: white;
+    width: 250px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.top10 div {
+    display: flex;
+    justify-content: space-around;
+}
+
+.top10 > div:first-child {
+    font-weight: bold;
+    padding: 5px;
+    border-bottom: 1px solid black;
+}
+
+.top10 > div:nth-child(2) {
+   
+}
+
+.fotoPerfil {
+    background-color: violet;
+    border-radius: 50%;
+    padding: 5px;
+}

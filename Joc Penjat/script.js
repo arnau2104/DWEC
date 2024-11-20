@@ -12,6 +12,7 @@ let intentsRestants = 7;
 let spanIntentsRestants = document.getElementById("intentsRestants");
 let contenedorParaulaSecreta = document.querySelector(".contenedorParaulaSecreta");
 let temps = document.querySelector(".temps");
+let imatgePenjat = document.getElementById("imatgePenjat");
 
 
 //FUNCIONS
@@ -71,6 +72,8 @@ function comprobarPartida() {
         guanyat = false;
     };
 
+   
+
     return guanyat;
 }
 
@@ -90,59 +93,126 @@ function temporitzador() {
     }
 };
 
+function cambiarImatgeCadaFall() {
+    if(contadorErrors == 1) {
+        imatgePenjat.setAttribute("src" , "./imgs/1fall.png" );
+    }else if(contadorErrors == 2) {
+        imatgePenjat.setAttribute("src" , "./imgs/2falls.png" );
+    }else if(contadorErrors == 3) {
+        imatgePenjat.setAttribute("src" , "./imgs/3falls.png" );
+    }else if(contadorErrors == 4) {
+        imatgePenjat.setAttribute("src" , "./imgs/4falls.png" );
+    }else if(contadorErrors == 5) {
+        imatgePenjat.setAttribute("src" , "./imgs/5falls.png" );
+    }else if(contadorErrors == 6) {
+        imatgePenjat.setAttribute("src" , "./imgs/6falls.png" );
+    }else if(contadorErrors == 7) {
+        imatgePenjat.setAttribute("src" , "./imgs/7falls.png" );
+    };
+}
+
 //EVENTS
 
 
+//activar mes envant!!!
+// let contaEnrera;
+// window.addEventListener('keydown', (e)=>{
+//     if(intentsRestants == 7) {
+//     contaEnrera = setInterval(temporitzador,1000);
+//     };
+    
+//     // revisar
+//       intentsRestants--;
+//       spanIntentsRestants.innerText = intentsRestants;
+//       if(intentsRestants == 0) {
+//           console.log("T has quedat sense intents");
+//       };
+   
+   
+
+//     // Guardam la lletra pitjada
+//     let lletra = document.querySelector('.tecla#' + e.key);
+//     lletra.classList.toggle('seleccionat');
+    
+//     //guardam la lletre pitjada a l'array de lletres jugades
+//     lletresJugades.push(lletra.id);
+  
+// });
+
+// window.addEventListener('keyup', (e)=> {
+//     let lletra = document.querySelector('.tecla#' + e.key);
+
+  
+
+//      if(comprobarLletra(lletra.id) == true ) {
+//         lletra.classList.add('correcta');
+//      }else {
+//         lletra.classList.add('incorrecta');
+//         lletresIncorrectes.push(lletra.id);
+//         contadorErrors++;
+//         numErrors.innerText = contadorErrors;
+
+//      };
+
+//      console.log(lletresCorrectes);
+
+//      if(comprobarPartida() == true) {
+//         console.log("Enhorabona, has guanyat la partidaa");
+//      };
+
+// });
 
 let contaEnrera;
-window.addEventListener('keydown', (e)=>{
-    if(intentsRestants == 7) {
-    contaEnrera = setInterval(temporitzador,1000);
-    };
+
+
+    teclat.addEventListener('click', (e)=>{
+        if(comprobarPartida() == false && intentsRestants > 0) {
+            if(intentsRestants == 7) {
+            contaEnrera = setInterval(temporitzador,1000);
+            };
+            
+            // revisar
+            intentsRestants--;
+            spanIntentsRestants.innerText = intentsRestants;
+            if(intentsRestants == 0) {
+                console.log("T has quedat sense intents");
+            };
+
+
+            // Guardam la lletra pitjada
+            let lletra = e.target;
+            lletra.classList.toggle('seleccionat');
+            
+            //guardam la lletre pitjada a l'array de lletres jugades
+            lletresJugades.push(lletra.id);
+
+            if(comprobarLletra(lletra.id) == true ) {
+                lletra.classList.add('correcta');
+            }else {
+                lletra.classList.add('incorrecta');
+                lletresIncorrectes.push(lletra.id);
+                contadorErrors++;
+                numErrors.innerText = contadorErrors;
+
+            };
+
+            console.log(lletresCorrectes);
+
+          
+
+            cambiarImatgeCadaFall();
+        }else if (comprobarPartida() == true) {
+            console.log("Partida guanyada!!"); 
+        }else {
+            console.log("Partida perduda");
+        }   
     
-    // revisar
-      intentsRestants--;
-      spanIntentsRestants.innerText = intentsRestants;
-      if(intentsRestants == 0) {
-          console.log("T has quedat sense intents");
-      };
-   
-   
+    });
 
-    // Guardam la lletra pitjada
-    let lletra = document.querySelector('.tecla#' + e.key);
-    lletra.classList.toggle('seleccionat');
-    
-    //guardam la lletre pitjada a l'array de lletres jugades
-    lletresJugades.push(lletra.id);
-  
-});
 
-window.addEventListener('keyup', (e)=> {
-    let lletra = document.querySelector('.tecla#' + e.key);
 
-  
-
-     if(comprobarLletra(lletra.id) == true ) {
-        lletra.classList.add('correcta');
-     }else {
-        lletra.classList.add('incorrecta');
-        lletresIncorrectes.push(lletra.id);
-        contadorErrors++;
-        numErrors.innerText = contadorErrors;
-
-     };
-
-     console.log(lletresCorrectes);
-
-     if(comprobarPartida() == true) {
-        console.log("Enhorabona, has guanyat la partidaa");
-     };
-
-});
 
 paraualaAleotoria();
 // cream la constant despres de generar la paraulaAleatoria, perque pugui trobar la classe
 const classParaulaSecreta = document.querySelectorAll(".paraulaSecreta");
 console.log(paraulaPartida);
-console.log(classParaulaSecreta.length);
