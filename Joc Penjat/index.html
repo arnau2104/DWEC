@@ -10,6 +10,11 @@
 
     <p>Seleccioni una lletra, li queden <span id="intentsRestants">7</span> intents</p>
 
+    <form action="">
+        <label for="nom">Nom d'usuari</label>
+        <input type="text" name="nom" maxlength="14" id="nomUsuari">
+    </form>
+
     <div class="dibuixPenjat">
         <img src="./imgs/dibuixPenjat.jpg" alt="" id="imatgePenjat">
     </div>
@@ -56,20 +61,85 @@
 
     <p>Has comès <span id="numErrors">0</span> errors</p>
 
-    <p class="temps">00:00 </p>
+    <p class="temps">00:00:00 </p>
 
     <div class="rankingResultats">
         <div class="podium">
-            <div id="segon" class="escalo-podium"><div>2n</div></div>
+            <div class="escalo-podium" id="segon"><div>2n</div></div>   
             <div id="primer" class="escalo-podium"><div>1r</div></div>
             <div id="tercer" class="escalo-podium"><div>3r</div></div>
         </div>
         <div class="top10">
-            <div><p>Logo</p> <p>Nom d'usuari</p> <p>Puntuacio</p></div>
-            <div><div class="fotoPerfil">A</div> <p>Arnau Marques</p> <p>2026</p></div>
+            <!-- <div><p>Logo</p> <p>Nom d'usuari</p> <p>Puntuacio</p></div> -->
+            <!-- <div class="contenidorPuntuacions">
+                <div><div class="fotoPerfil">A</div> <p class="nomUsuari">Arnau Marques</p> <p class="puntuacioUsuari">2026</p></div>
+                <div><div class="fotoPerfil">P</div> <p class="nomUsuari">Peri</p> <p class="puntuacioUsuari">2026</p></div>
+                <div><div class="fotoPerfil">A</div> <p class="nomUsuari">Arnau Marques</p> <p class="puntuacioUsuari">2026</p></div>
+                <div><div class="fotoPerfil">A</div> <p class="nomUsuari">Arnau Marques</p> <p class="puntuacioUsuari">2026</p></div>
+                <div><div class="fotoPerfil">A</div> <p class="nomUsuari">Arnau Marques</p> <p class="puntuacioUsuari">2026</p></div>
+                <div><div class="fotoPerfil">A</div> <p class="nomUsuari">Arnau Marques</p> <p class="puntuacioUsuari">2026</p></div>
+                <div><div class="fotoPerfil">A</div> <p class="nomUsuari">Arnau Marques</p> <p class="puntuacioUsuari">2026</p></div>
+                <div><div class="fotoPerfil">A</div> <p class="nomUsuari">Arnau Marques</p> <p class="puntuacioUsuari">2026</p></div>
+            </div> -->
+            <table class="contenidorPuntuacions">
+                <thead>
+                    <tr class="capçalera">
+                        <th>Posicio</th>
+                        <th>Logo</th>
+                        <th>Nom d'usuari</th>
+                        <th>Puntuacio</th>
+                    </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>4</td>
+                    <td><div class="fotoPerfil">A</div></td>
+                    <td>Arnau Marques</td>
+                    <td>20226</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td><div class="fotoPerfil">A</div></td>
+                    <td>Arnauuuuuuu</td>
+                    <td>20226</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td><div class="fotoPerfil">A</div></td>
+                    <td>Carlos</td>
+                    <td>20226</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td><div class="fotoPerfil">A</div></td>
+                    <td>Marc</td>
+                    <td>20226</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td><div class="fotoPerfil">A</div></td>
+                    <td>Cristina</td>
+                    <td>20226</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td><div class="fotoPerfil">A</div></td>
+                    <td>Peri</td>
+                    <td>20226</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td><div class="fotoPerfil">A</div></td>
+                    <td>Luca Segui</td>
+                    <td>20226</td>
+                </tr>
+            </tbody>
+            </table>
         </div>
     </div>
 
+    <script src="../scriptsGenerals/cadenes.js"></script>
     <script src="./script.js"></script>
 </head>
 <body>

@@ -13,6 +13,10 @@ let spanIntentsRestants = document.getElementById("intentsRestants");
 let contenedorParaulaSecreta = document.querySelector(".contenedorParaulaSecreta");
 let temps = document.querySelector(".temps");
 let imatgePenjat = document.getElementById("imatgePenjat");
+let puntuacio = 0;
+let nomUsuari = document.getElementById("nomUsuari").value;
+let rankingPuntuacions = [[]];
+
 
 
 //FUNCIONS
@@ -77,21 +81,56 @@ function comprobarPartida() {
     return guanyat;
 }
 
-let time = new Date();
-duracion = 30;
-time.setSeconds(duracion);
-temps.innerHTML =  "00:" + time.getSeconds();
-function temporitzador() {
-    let seconds = time.getSeconds();
-    seconds = seconds - 1;
-    if(seconds == 0) {
-        temps.innerHTML = "T has quedat sense temps"     
-    }else {
-    time.setSeconds(seconds);
+// let time = new Date();
+// duracion = 30;
+// time.setSeconds(duracion);
+// temps.innerHTML =  "00:" + time.getSeconds();
+// function temporitzador() {
+//     let seconds = time.getSeconds();
+//     seconds = seconds - 1;
+//     if(seconds == 0) {
+//         temps.innerHTML = "T has quedat sense temps"     
+//     }else {
+//     time.setSeconds(seconds);
     
-    temps.innerHTML ="00:" + seconds;
-    }
-};
+//     temps.innerHTML ="00:" + seconds;
+//     }
+// };
+let horaStart = 0;
+let minutosStart = 0;
+let segundostart = 0;
+let segonsPartida;
+function crono() {
+    let miFecha = new Date('December 17, 1995 ' + horaStart +':' + minutosStart+':' + segundostart) ;
+    let horas = miFecha.getHours();
+    let minutos = miFecha.getMinutes();
+    let segundos = miFecha.getSeconds();
+    let elCronometro = document.getElementById("elCronometro");
+
+
+
+    horas = rellenarConCeros(horas, 2);
+    minutos = rellenarConCeros(minutos, 2);
+    segundos = rellenarConCeros(segundos, 2);
+
+    let horaActual = horas +":" + minutos + ":" + segundos;
+
+   temps.innerHTML = horaActual;
+
+if(segundostart >=60) {
+    segundostart = 0;
+    minutosStart += 1;
+}
+
+if(minutosStart >= 60) {
+    minutosStart = 0;
+    horaStart += 1;
+}
+
+ segundostart += 1;
+
+ segonsPartida = miFecha.getSeconds();
+}
 
 function cambiarImatgeCadaFall() {
     if(contadorErrors == 1) {
@@ -108,6 +147,23 @@ function cambiarImatgeCadaFall() {
         imatgePenjat.setAttribute("src" , "./imgs/6falls.png" );
     }else if(contadorErrors == 7) {
         imatgePenjat.setAttribute("src" , "./imgs/7falls.png" );
+    };
+}
+
+function calcularPuntuacio() {
+    let puntuacioAcerts = lletresCorrectes.length * 100;
+    let puntuacioTemps = segonsPartida;
+    puntuacio = (puntuacioAcerts - (contadorErrors * 10)) - puntuacioTemps;
+    
+}
+
+function compararPuntuacio() {
+    //si el ranking esta buit, aixo vol dir que es el primer en jugar, sinos comparam la puntuacio de la partida amb les altres puntuacions
+    if(rankingPuntuacions.length > 1) {
+        console.log("arrayNo buit");
+    }else {
+        rankingPuntuacions[0][0] = nomUsuari;
+        rankingPuntuacions[0][1] = puntuacio;
     };
 }
 
@@ -162,13 +218,13 @@ function cambiarImatgeCadaFall() {
 
 // });
 
-let contaEnrera;
+let elCrono;
 
 
     teclat.addEventListener('click', (e)=>{
         if(comprobarPartida() == false && intentsRestants > 0) {
             if(intentsRestants == 7) {
-            contaEnrera = setInterval(temporitzador,1000);
+                elCrono = setInterval(crono,1000);
             };
             
             // revisar
@@ -198,14 +254,34 @@ let contaEnrera;
 
             console.log(lletresCorrectes);
 
-          
 
             cambiarImatgeCadaFall();
-        }else if (comprobarPartida() == true) {
-            console.log("Partida guanyada!!"); 
-        }else {
-            console.log("Partida perduda");
-        }   
+
+            //aixo es que la partida ha finalitzat
+           if(comprobarPartida() == true ||  intentsRestants == 0) {
+          
+            calcularPuntuacio();
+            compararPuntuacio();
+            console.log(puntuacio);
+          
+            //miram el ranking
+            for(let i = 0; i < rankingPuntuacions.length; i++) {
+            console.log(rankingPuntuacions[i]);
+           }
+            
+                if (comprobarPartida() == true) {
+                    console.log("Partida guanyada!!"); 
+                    elCrono = clearInterval(elCrono);
+                }else if(intentsRestants == 0) {
+                    console.log("partida perduda, no queden mes intents");
+                    elCrono = clearInterval(elCrono);
+                } else if(contadorErrors == 7) {
+                    console.log("Partida perduda per falls");
+                    elCrono = clearInterval(elCrono);
+                }
+            };
+        
+        };
     
     });
 
@@ -216,3 +292,6 @@ paraualaAleotoria();
 // cream la constant despres de generar la paraulaAleatoria, perque pugui trobar la classe
 const classParaulaSecreta = document.querySelectorAll(".paraulaSecreta");
 console.log(paraulaPartida);
+
+
+console.log( typeof nomUsuari);

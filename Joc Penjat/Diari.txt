@@ -3,3 +3,6 @@ He creat els events listeners de quan premem una tecla i tambe he creat el html 
 
 Dia 2:
 He creat la funcio per comprobar si la lletra espitjada es correcte, tambe he creat la funcio per comporobar si hem guanyat la partida i la del temporitzador.
+
+Dia 3:
+He creat el ranking de puntuacions i les guard dins un array, tambe he creat el input per posar el teu nom d'usuari
