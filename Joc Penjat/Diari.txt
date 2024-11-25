@@ -6,3 +6,6 @@ He creat la funcio per comprobar si la lletra espitjada es correcte, tambe he cr
 
 Dia 3:
 He creat el ranking de puntuacions i les guard dins un array, tambe he creat el input per posar el teu nom d'usuari
+
+Dia 4:
+He guardat les partides al localstoratge i tambe  creat la funcio que ompleix el ranking de puntuacions, introdueix les dades al html, i tambe he ordenat l'array de puntuacions per ordre de puntuacio
