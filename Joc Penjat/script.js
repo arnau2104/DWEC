@@ -17,10 +17,9 @@ let puntuacio = 0;
 let nomUsuari = document.getElementById("nomUsuari");
 let rankingPuntuacions = new Array(0);
 let tbody = document.querySelector("tbody");
-
-
-
-
+let tables = document.querySelectorAll("table");
+let tempsRestantPosarLletra = document.getElementById("tempsRestantPosarLletra");
+let laContaEnrera;
 
 
 //FUNCIONS
@@ -40,6 +39,15 @@ function paraualaAleotoria() {
         contenedorParaulaSecreta.innerHTML += "<div class='paraulaSecreta'>_</div>";
     };
 };
+
+function paraultaArrayToString(array) {
+    let paraula="";
+    for(let i = 0; i < array.length; i++) {
+        paraula+=array[i];
+    }
+
+    return paraula;
+}
 
 
 function comprobarLletra(lletra) {
@@ -136,6 +144,40 @@ if(minutosStart >= 60) {
  segonsPartida = miFecha.getSeconds();
 }
 
+let time = new Date();
+let duracio = 10
+time.setSeconds(duracio);
+tempsRestantPosarLletra.innerHTML = time.getSeconds()
+
+
+
+function contaEnrera() {
+    let seconds = time.getSeconds();
+    seconds = seconds - 1;
+    if(seconds == 0) {
+        tempsRestantPosarLletra.innerHTML = "0"
+       
+        
+
+        setTimeout(restartContaEnrrera,2000); //reiniciam el contador
+        
+
+
+    }else {
+    time.setSeconds(seconds);  
+    tempsRestantPosarLletra.innerHTML = seconds;
+    }
+};
+
+function restartContaEnrrera() {
+    tempsRestantPosarLletra.innerHTML = duracio;
+    time.setSeconds(duracio);
+    intentsRestants--;
+    spanIntentsRestants.innerHTML = intentsRestants;
+   
+}
+
+
 function cambiarImatgeCadaFall() {
     if(contadorErrors == 1) {
         imatgePenjat.setAttribute("src" , "./imgs/1fall.png" );
@@ -162,49 +204,89 @@ function calcularPuntuacio() {
 }
 
 function localStorageToArray() {
-    for(let i = 0; i < localStorage.length; i++) {
-        rankingPuntuacions[i] = JSON.parse(localStorage.getItem(i + 1));
-    };
+    
+    let LSRanking = JSON.parse(localStorage.getItem("rankingPuntuacions"));
+   
 
-    //ordenam de mes puntuacio a menor
-    rankingPuntuacions.sort(function (a,b) {
-        return b[1] - a[1] ;
-    });
+    if( LSRanking != null && LSRanking.length != 0 ) {
+        for(let i = 0; i < LSRanking.length; i++) {
+            let rankingConvertion = [];
+            rankingConvertion[0] = LSRanking[i].nomUsuari;
+            rankingConvertion[1] = LSRanking[i].puntuacio;
+            rankingConvertion[2] = LSRanking[i].paraula; 
+            rankingConvertion[3] = LSRanking[i].segons;
+            rankingConvertion[4] = LSRanking[i].numErrors;
+            
+            rankingPuntuacions[i] = rankingConvertion;
+            
+        };
+
+        //ordenam de mes puntuacio a menor
+        rankingPuntuacions.sort(function (a,b) {
+            return b[1] - a[1] ;
+        });
+
+    }else {
+        console.log("local storatge buit");
+    }
 }
 
 function compararPuntuacio() {
    
+    let paraula = paraultaArrayToString(paraulaPartida);
     //si el ranking esta buit, aixo vol dir que es el primer en jugar, sinos comparam la puntuacio de la partida amb les altres puntuacions
     
-    localStorageToArray();
+     localStorageToArray();
 
     if( !rankingPuntuacions.length == 0 ) {
        
-        rankingPuntuacions.push([nomUsuari.value, puntuacio]);
-        localStorage.setItem(localStorage.length + 1 , JSON.stringify(rankingPuntuacions[rankingPuntuacions.length - 1]));
+        rankingPuntuacions.push({"nomUsuari": nomUsuari.value, "puntuacio":puntuacio, "paraula":paraula,"segons":segonsPartida,"numErrors":contadorErrors});
+        localStorage.setItem("rankingPuntuacions" , JSON.stringify(rankingPuntuacions));
        
     }else {
-        rankingPuntuacions[0] = [nomUsuari.value, puntuacio];
-        localStorage.setItem("1" , JSON.stringify(rankingPuntuacions[0]));
+        rankingPuntuacions[0] = {"nomUsuari": nomUsuari.value, "puntuacio":puntuacio, "paraula":paraula,"segons":segonsPartida,"numErrors":contadorErrors};
+        localStorage.setItem("rankingPuntuacions" , JSON.stringify(rankingPuntuacions));
 
     };
 }
 
 function pintarRankingPuntuacions() {
-    for(let i = 0; i < rankingPuntuacions.length; i++) {
-        let nomUsuariRanking =  rankingPuntuacions[i][0];
-       
-        let puntuacioRanking = rankingPuntuacions[i][1];
-        tbody.innerHTML+= 
-        "<tr> <td>"+ (i + 1) +"</td> <td> <div class='fotoPerfil'>" + nomUsuariRanking[0]
-         + "</div> </td> <td>"+ nomUsuariRanking +"</td> <td>"+ puntuacioRanking + "</td></tr>"
-    };
+    let divRanking = document.querySelector(".rankingResultats table:first-child");
+    if(rankingPuntuacions.length != 0) {
+        tables.forEach((table)=> {
+            let tbody = table.querySelector("tbody");
+
+            for(let i = 0; i < rankingPuntuacions.length; i++) {
+                let posicio = i + 1;
+                let nomUsuariRanking =  rankingPuntuacions[i][0];
+                let puntuacioRanking = rankingPuntuacions[i][1];
+                let paraulaRanking = rankingPuntuacions[i][2];
+
+                if( divRanking) {
+                    // console.log("ranking dins");
+                    tbody.innerHTML+= 
+                    "<tr> <td>"+ posicio +"</td>  <td> <div class='fotoPerfil'>" + nomUsuariRanking[0]
+                    + "</div> </td> <td>"+ nomUsuariRanking +"</td> <td>"+ puntuacioRanking + "</td></tr>";
+                }
+                 if(table.classList.contains(paraulaRanking)) {
+                  
+                    tbody.innerHTML+= 
+                "<tr> <td>"+ posicio +"</td> <td>" + paraulaRanking + "</td> <td> <div class='fotoPerfil'>" + nomUsuariRanking[0]
+                + "</div> </td> <td>"+ nomUsuariRanking +"</td> <td>"+ puntuacioRanking + "</td></tr>";
+                }
+
+                
+            };
+        })
+    }else {
+        console.log("array buit");
+    }
 }
 
 //EVENTS
 
 
-//activar mes envant!!!
+//ACTIVAR MES ENVANT!!!
 // let contaEnrera;
 // window.addEventListener('keydown', (e)=>{
 //     if(intentsRestants == 7) {
@@ -254,22 +336,19 @@ function pintarRankingPuntuacions() {
 
 let elCrono;
 
-
+   
+    
+        laContaEnrera =  setInterval(contaEnrera,1000);
+    
 
     teclat.addEventListener('click', (e)=>{
+        laContaEnrera = clearInterval(laContaEnrera);
+
         if(comprobarPartida() == false && intentsRestants > 0) {
             if(intentsRestants == 7) {
                 elCrono = setInterval(crono,1000);
             };
-            
-            // revisar
-            intentsRestants--;
-            spanIntentsRestants.innerText = intentsRestants;
-            if(intentsRestants == 0) {
-                console.log("T has quedat sense intents");
-            };
-
-
+         
             // Guardam la lletra pitjada
             let lletra = e.target;
             lletra.classList.toggle('seleccionat');
@@ -284,7 +363,14 @@ let elCrono;
                 lletresIncorrectes.push(lletra.id);
                 contadorErrors++;
                 numErrors.innerText = contadorErrors;
+                intentsRestants--;
+                spanIntentsRestants.innerText = intentsRestants;
 
+            };
+
+            if(intentsRestants == 0) {
+                console.log("T has quedat sense intents");
+                elCrono = clearInterval(elCrono);
             };
 
             console.log(lletresCorrectes);
@@ -293,18 +379,21 @@ let elCrono;
             cambiarImatgeCadaFall();
 
             //aixo es que la partida ha finalitzat
-           if(comprobarPartida() == true ||  intentsRestants == 0) {
+           if(comprobarPartida() == true ) {
           
-            calcularPuntuacio();
-            compararPuntuacio();
-            console.log(rankingPuntuacions.length);
-            console.log(puntuacio);
-          
-            //miram el ranking
-            for(let i = 0; i < rankingPuntuacions.length; i++) {
-            console.log(rankingPuntuacions[i]);
-           
-           };
+                calcularPuntuacio();
+                compararPuntuacio();
+                console.log(rankingPuntuacions.length);
+                console.log(puntuacio);
+            
+                //miram el ranking
+                for(let i = 0; i < rankingPuntuacions.length; i++) {
+                console.log(rankingPuntuacions[i]);
+            
+            };
+
+        };
+         
             
                 if (comprobarPartida() == true) {
                     console.log("Partida guanyada!!"); 
@@ -316,11 +405,15 @@ let elCrono;
                     console.log("Partida perduda per falls");
                     elCrono = clearInterval(elCrono);
                 }
-            };
+            
         
         };
     
     });
+
+   
+       
+    
 
 
 

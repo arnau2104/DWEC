@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joc Penjat</title>
+    <link rel="stylesheet" href="style.css">
+
+    <h1>Benvingut al joc del Penjat</h1>
+
+    <p>Seleccioni una lletra, li queden <span id="intentsRestants">7</span> intents</p>
+
+     <form action="#">
+        <label for="nom">Nom d'usuari</label>
+        <input type="text" name="nom" maxlength="14" id="nomUsuari">
+        
+    </form> 
+
+    <div class="dibuixPenjat">
+        <img src="./imgs/dibuixPenjat.jpg" alt="" id="imatgePenjat">
+    </div>
+
+    <div class="contenedorParaulaSecreta">
+    </div>
+
+    <div id="teclat">
+        <div class="fila">
+            <div class="tecla" id="q">Q</div>
+            <div class="tecla" id="w">W</div>
+            <div class="tecla" id="e">E</div>
+            <div class="tecla" id="r">R</div>
+            <div class="tecla" id="t">T</div>
+            <div class="tecla" id="y">Y</div>
+            <div class="tecla" id="u">U</div>
+            <div class="tecla" id="i">I</div>
+            <div class="tecla" id="o">O</div>
+            <div class="tecla" id="p">P</div>
+        </div>
+        <div class="fila">
+            <div class="tecla" id="a">A</div>
+            <div class="tecla" id="s">S</div>
+            <div class="tecla" id="d">D</div>
+            <div class="tecla" id="f">F</div>
+            <div class="tecla" id="g">G</div>
+            <div class="tecla" id="h">H</div>
+            <div class="tecla" id="j">J</div>
+            <div class="tecla" id="k">K</div>
+            <div class="tecla" id="l">L</div>
+            <div class="tecla" id="ñ">Ñ</div>
+        </div>
+        <div class="fila">
+            <div class="tecla" id="z">Z</div>
+            <div class="tecla" id="x">X</div>
+            <div class="tecla" id="c">C</div>
+            <div class="tecla" id="v">V</div>
+            <div class="tecla" id="b">B</div>
+            <div class="tecla" id="n">N</div>
+            <div class="tecla" id="m">M</div>
+           
+        </div>
+    </div>
+
+    <p>Has comès <span id="numErrors">0</span> errors</p>
+
+    <p class="temps">00:00:00 </p>
+    <p>Has de posar una lletra en: <span id="tempsRestantPosarLletra"></span> segons</p>
+
+    <div class="rankingResultats">
+        <!-- <div class="podium">
+            <div class="escalo-podium" id="segon"><div>2n</div></div>   
+            <div id="primer" class="escalo-podium"><div>1r</div></div>
+            <div id="tercer" class="escalo-podium"><div>3r</div></div>
+        </div> -->
+       
+      
+            <table class="contenidorPuntuacions">
+                <thead>
+                    <tr class="capçalera">
+                        <th>Posicio</th>
+                        <th>Logo</th>
+                        <th>Nom d'usuari</th>
+                        <th>Puntuacio</th>
+                    </tr>
+            </thead>
+
+            <tbody>
+                
+            </tbody>
+            </table>
+
+            <table class="contenidorPuntuacions futbol">
+                <thead>
+                    <tr class="capçalera">
+                        <th>Posicio</th>
+                        <th>Paraula</th>
+                        <th>Logo</th>
+                        <th>Nom d'usuari</th>
+                        <th>Puntuacio</th>
+                    </tr>
+            </thead>
+
+            <tbody>
+                
+            </tbody>
+            </table>
+       
+    </div>
+
+    <script src="../scriptsGenerals/cadenes.js"></script>
+    <script src="./script.js"></script>
+</head>
+<body>
+    
+</body>
+</html>
