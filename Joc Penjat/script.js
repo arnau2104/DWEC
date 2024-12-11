@@ -20,6 +20,7 @@ let tbody = document.querySelector("tbody");
 let tables = document.querySelectorAll("table");
 let tempsRestantPosarLletra = document.getElementById("tempsRestantPosarLletra");
 let laContaEnrera;
+let contadorClics = 0;
 
 
 //FUNCIONS
@@ -155,13 +156,9 @@ function contaEnrera() {
     let seconds = time.getSeconds();
     seconds = seconds - 1;
     if(seconds == 0) {
-        tempsRestantPosarLletra.innerHTML = "0"
+        tempsRestantPosarLletra.innerHTML = "0";
        
-        
-
-        setTimeout(restartContaEnrrera,2000); //reiniciam el contador
-        
-
+        setTimeout(restartContaEnrrera); //reiniciam el contador      
 
     }else {
     time.setSeconds(seconds);  
@@ -170,10 +167,15 @@ function contaEnrera() {
 };
 
 function restartContaEnrrera() {
+    intentsRestants--;
+    if(intentsRestants <=0) {
+        spanIntentsRestants.innerHTML = 0;
+    }else{
+        spanIntentsRestants.innerHTML = intentsRestants;
+    }
     tempsRestantPosarLletra.innerHTML = duracio;
     time.setSeconds(duracio);
-    intentsRestants--;
-    spanIntentsRestants.innerHTML = intentsRestants;
+   
    
 }
 
@@ -207,19 +209,26 @@ function localStorageToArray() {
     
     let LSRanking = JSON.parse(localStorage.getItem("rankingPuntuacions"));
    
+    console.log(LSRanking);
 
     if( LSRanking != null && LSRanking.length != 0 ) {
-        for(let i = 0; i < LSRanking.length; i++) {
-            let rankingConvertion = [];
-            rankingConvertion[0] = LSRanking[i].nomUsuari;
-            rankingConvertion[1] = LSRanking[i].puntuacio;
-            rankingConvertion[2] = LSRanking[i].paraula; 
-            rankingConvertion[3] = LSRanking[i].segons;
-            rankingConvertion[4] = LSRanking[i].numErrors;
+        LSRanking.forEach((ranking)=>{
+        let rankingConvertion = new Array(0);
+        rankingConvertion['nomUsuari'] = ranking.nomUsuari;
+        rankingConvertion['puntuacio'] = ranking.puntuacio;
+        rankingConvertion['paraula'] = ranking.paraula;
+        rankingConvertion['segons'] = ranking.segons;
+        rankingConvertion['numErrors'] = ranking.numErrors;
+           
+            rankingPuntuacions.push(rankingConvertion);
             
-            rankingPuntuacions[i] = rankingConvertion;
-            
-        };
+        });
+
+        rankingPuntuacions.forEach((posicio)=>{
+            console.log(posicio);
+        })
+
+       
 
         //ordenam de mes puntuacio a menor
         rankingPuntuacions.sort(function (a,b) {
@@ -238,16 +247,16 @@ function compararPuntuacio() {
     
      localStorageToArray();
 
-    if( !rankingPuntuacions.length == 0 ) {
+     if( !rankingPuntuacions.length == 0 ) {
        
         rankingPuntuacions.push({"nomUsuari": nomUsuari.value, "puntuacio":puntuacio, "paraula":paraula,"segons":segonsPartida,"numErrors":contadorErrors});
         localStorage.setItem("rankingPuntuacions" , JSON.stringify(rankingPuntuacions));
        
-    }else {
-        rankingPuntuacions[0] = {"nomUsuari": nomUsuari.value, "puntuacio":puntuacio, "paraula":paraula,"segons":segonsPartida,"numErrors":contadorErrors};
-        localStorage.setItem("rankingPuntuacions" , JSON.stringify(rankingPuntuacions));
+     }else {
+         rankingPuntuacions[0] = {"nomUsuari": nomUsuari.value, "puntuacio":puntuacio, "paraula":paraula,"segons":segonsPartida,"numErrors":contadorErrors};
+         localStorage.setItem("rankingPuntuacions" , JSON.stringify(rankingPuntuacions));
 
-    };
+     };
 }
 
 function pintarRankingPuntuacions() {
@@ -258,21 +267,18 @@ function pintarRankingPuntuacions() {
 
             for(let i = 0; i < rankingPuntuacions.length; i++) {
                 let posicio = i + 1;
-                let nomUsuariRanking =  rankingPuntuacions[i][0];
-                let puntuacioRanking = rankingPuntuacions[i][1];
-                let paraulaRanking = rankingPuntuacions[i][2];
+                let nomUsuariRanking =  rankingPuntuacions[i]["nomUsuari"];
+                let puntuacioRanking = rankingPuntuacions[i]["puntuacio"];
+                let paraulaRanking = rankingPuntuacions[i]["paraula"];
 
-                if( divRanking) {
-                    // console.log("ranking dins");
+                 if(table.classList.contains("paraula")) {
                     tbody.innerHTML+= 
-                    "<tr> <td>"+ posicio +"</td>  <td> <div class='fotoPerfil'>" + nomUsuariRanking[0]
-                    + "</div> </td> <td>"+ nomUsuariRanking +"</td> <td>"+ puntuacioRanking + "</td></tr>";
-                }
-                 if(table.classList.contains(paraulaRanking)) {
-                  
-                    tbody.innerHTML+= 
-                "<tr> <td>"+ posicio +"</td> <td>" + paraulaRanking + "</td> <td> <div class='fotoPerfil'>" + nomUsuariRanking[0]
+                "<tr> <td>"+ posicio +"</td> <td>" + paraulaRanking + "</td> <td> <div class='fotoPerfil'>" + nomUsuariRanking.substring(0, 1)
                 + "</div> </td> <td>"+ nomUsuariRanking +"</td> <td>"+ puntuacioRanking + "</td></tr>";
+                }else {
+                    tbody.innerHTML+= 
+                    "<tr> <td>"+ posicio +"</td>  <td> <div class='fotoPerfil'>" + nomUsuariRanking.substring(0, 1)
+                    + "</div> </td> <td>"+ nomUsuariRanking +"</td> <td>"+ puntuacioRanking + "</td></tr>";
                 }
 
                 
@@ -338,15 +344,24 @@ let elCrono;
 
    
     
-        laContaEnrera =  setInterval(contaEnrera,1000);
+        // laContaEnrera =  setInterval(contaEnrera,1000);
     
 
     teclat.addEventListener('click', (e)=>{
+        
+        time.setSeconds(duracio + 1);
         laContaEnrera = clearInterval(laContaEnrera);
-
+   
         if(comprobarPartida() == false && intentsRestants > 0) {
-            if(intentsRestants == 7) {
+            contadorClics++;
+            
+            laContaEnrera =  setInterval(contaEnrera,1000);
+            
+           
+
+            if(contadorClics == 1) {
                 elCrono = setInterval(crono,1000);
+                
             };
          
             // Guardam la lletra pitjada
@@ -387,10 +402,10 @@ let elCrono;
                 console.log(puntuacio);
             
                 //miram el ranking
-                for(let i = 0; i < rankingPuntuacions.length; i++) {
-                console.log(rankingPuntuacions[i]);
+            //     for(let i = 0; i < rankingPuntuacions.length; i++) {
+            //     console.log(rankingPuntuacions[i]);
             
-            };
+            // };
 
         };
          
@@ -398,16 +413,23 @@ let elCrono;
                 if (comprobarPartida() == true) {
                     console.log("Partida guanyada!!"); 
                     elCrono = clearInterval(elCrono);
+                    laContaEnrera = clearInterval(laContaEnrera);
                 }else if(intentsRestants == 0) {
                     console.log("partida perduda, no queden mes intents");
                     elCrono = clearInterval(elCrono);
+                    laContaEnrera = clearInterval(laContaEnrera);
                 } else if(contadorErrors == 7) {
                     console.log("Partida perduda per falls");
                     elCrono = clearInterval(elCrono);
+                    laContaEnrera = clearInterval(laContaEnrera);
                 }
             
         
+       
+           
         };
+
+        
     
     });
 
