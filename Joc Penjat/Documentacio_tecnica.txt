@@ -1,0 +1,41 @@
+■ Descripció general del projecte:
+Aquest projecte és una aplicació web del joc "El Penjat", on els usuaris han de descobrir una paraula secreta a partir de les lletres proposades. 
+L'objectiu és endevinar la paraula abans que s'acabin els intents disponibles. El projecte busca oferir una experiència interactiva i entretinguda, amb una limitació de temps i intents per fer el joc més desafiante. El principal objectiu és crear un joc accessible i divertit per als usuaris, promovent la resolució de paraules a través de proves i encerts.
+
+■ Funcionalitats:
+El projecte inclou les següents funcionalitats principals:
+
+Joc interactiu on els usuaris poden introduir lletres per endevinar la paraula secreta.
+7 intents disponibles per a cada partida. Si no endevinen, perden un intent per cada error.
+Limitació de temps de 10 segons per introduir una lletra. Si no es fa res en aquest temps, també es perd un intent.
+Un sistema de feedback visual per mostrar les lletres encertades i els intents restants.
+Pantalla de benvinguda i ranking per veure els millors resultats.
+
+■ Estructura
+El projecte està organitzat en diversos fitxers que separen la funcionalitat i l'estil:
+
+HTML: Conté l'estructura de la pàgina web, incloent les pagines ont hi ha el joc, la pagina de benvinguda i el ranking.
+CSS: Defineix l'estil visual del joc, com la distribució dels elements, el disseny dels botons, les animacions i els efectes visuals en els diferents estats del joc.
+JavaScript: S'encarrega de la lògica del joc, com gestionar els intents, el temps, les entrades de l'usuari, les condicions de guanyar o perdre i actualitzar la interfície.
+
+■ Requisits del sistema
+Per poder executar aquest projecte, només es necessita un navegador web modern (com Google Chrome, Firefox, Safari o Edge) amb suport per a HTML5, CSS3 i JavaScript ES6. 
+No és necessari cap sistema operatiu o programari específic per executar l'aplicació, ja que el projecte és completament basat en web.
+
+■ Instalació i configuracio:
+L'unic que necesites per utilitzar el joc es l'enllaç al githubpages on hi ha el joc publicat, l'enllaç es el següent: 
+El joc no necesita cap tipus de configuració, es configura tot sol.
+
+■ Us del projecte:
+L'objectiu del joc és endevinar la paraula secreta abans que s'esgotin els intents. 
+Cada vegada que introdueixis una lletra correcta, aquesta apareixerà a la paraula amagada. En canvi, si la lletra introduïda és incorrecta, perdràs un intent. 
+El joc comença amb un total de 7 intents, i cada vegada que no introdueixis cap lletra en 10 segons, et restarà un intent. Així que és important estar atent al temps!
+La partida finalitzarà quan encertis tota la paraula secreta abans d'esgotar els intents, o quan hagis perdut els 7 intents. Si això passa, hauràs perdut la partida
+
+■ Actualització:
+Millores aplicades al projecte:
+    - Ranking de puntuacions per paraules
+
+■ Referencies:
+    https://uiverse.io/
+    https://developer.mozilla.org/es/

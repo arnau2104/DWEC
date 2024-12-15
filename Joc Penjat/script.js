@@ -1,4 +1,29 @@
-const llistaParaules = ['bolla','guerra', 'futbol', 'cotxe'];
+const llistaParaules = [
+    'bossa',
+    'guerra',
+    'futbol',
+    'cotxe',
+    'llibre',
+    'taula',
+    'cadira',
+    'mobil',
+    'escacs',
+    'basquet',
+    'platja',
+    'muntanya',
+    'ciutat',
+    'amistat',
+    'familia',
+    'tradicio',
+    'aigua',
+    'avio',
+    'natura',
+    'escola',
+    'ordinador',
+    'teatre',
+    'musica',
+    'jardi'
+  ];
 //const paraulaEndivinar = [...document.querySelectorAll('.paraulaSecreta')];
 let paraulaPartida = []; // Aquesta sera la paraula amb la que es jugara la partida
 let teclat = document.getElementById('teclat');
@@ -21,8 +46,11 @@ let tables = document.querySelectorAll("table");
 let tempsRestantPosarLletra = document.getElementById("tempsRestantPosarLletra");
 let laContaEnrera;
 let contadorClics = 0;
-
-
+let btnJugar = document.querySelector(".btn-jugar");
+let divsJoc = document.querySelectorAll(".joc");
+let divJocAcabat = document.getElementById("joc-acabat");
+let btnJugarNou = document.querySelector(".jugar-de-nou");
+let spanParaulaJugada = document.getElementById("paraula-jugada");
 //FUNCIONS
 
 //Funcio que retorna un nombre aleatori entre 0 i el maxim que indiquis
@@ -143,6 +171,7 @@ if(minutosStart >= 60) {
  segundostart += 1;
 
  segonsPartida = miFecha.getSeconds();
+
 }
 
 let time = new Date();
@@ -207,18 +236,21 @@ function calcularPuntuacio() {
 
 function localStorageToArray() {
     
+    rankingPuntuacions = [];
+
     let LSRanking = JSON.parse(localStorage.getItem("rankingPuntuacions"));
    
     console.log(LSRanking);
 
     if( LSRanking != null && LSRanking.length != 0 ) {
         LSRanking.forEach((ranking)=>{
-        let rankingConvertion = new Array(0);
-        rankingConvertion['nomUsuari'] = ranking.nomUsuari;
-        rankingConvertion['puntuacio'] = ranking.puntuacio;
-        rankingConvertion['paraula'] = ranking.paraula;
-        rankingConvertion['segons'] = ranking.segons;
-        rankingConvertion['numErrors'] = ranking.numErrors;
+            let rankingConvertion = {
+                nomUsuari: ranking.nomUsuari,
+                puntuacio: ranking.puntuacio,
+                paraula: ranking.paraula,
+                segons: ranking.segons,
+                numErrors: ranking.numErrors
+            };
            
             rankingPuntuacions.push(rankingConvertion);
             
@@ -232,7 +264,7 @@ function localStorageToArray() {
 
         //ordenam de mes puntuacio a menor
         rankingPuntuacions.sort(function (a,b) {
-            return b[1] - a[1] ;
+            return b["puntuacio"] - a["puntuacio"] ;
         });
 
     }else {
@@ -246,105 +278,44 @@ function compararPuntuacio() {
     //si el ranking esta buit, aixo vol dir que es el primer en jugar, sinos comparam la puntuacio de la partida amb les altres puntuacions
     
      localStorageToArray();
-
-     if( !rankingPuntuacions.length == 0 ) {
+ 
+        rankingPuntuacions.push({
+            "nomUsuari": nomUsuari.value, 
+            "puntuacio": puntuacio, 
+            "paraula": paraula,
+            "segons": segonsPartida,
+            "numErrors": contadorErrors});
+        
+            localStorage.setItem("rankingPuntuacions" , JSON.stringify(rankingPuntuacions));
        
-        rankingPuntuacions.push({"nomUsuari": nomUsuari.value, "puntuacio":puntuacio, "paraula":paraula,"segons":segonsPartida,"numErrors":contadorErrors});
-        localStorage.setItem("rankingPuntuacions" , JSON.stringify(rankingPuntuacions));
-       
-     }else {
-         rankingPuntuacions[0] = {"nomUsuari": nomUsuari.value, "puntuacio":puntuacio, "paraula":paraula,"segons":segonsPartida,"numErrors":contadorErrors};
-         localStorage.setItem("rankingPuntuacions" , JSON.stringify(rankingPuntuacions));
-
-     };
 }
 
-function pintarRankingPuntuacions() {
-    let divRanking = document.querySelector(".rankingResultats table:first-child");
-    if(rankingPuntuacions.length != 0) {
-        tables.forEach((table)=> {
-            let tbody = table.querySelector("tbody");
 
-            for(let i = 0; i < rankingPuntuacions.length; i++) {
-                let posicio = i + 1;
-                let nomUsuariRanking =  rankingPuntuacions[i]["nomUsuari"];
-                let puntuacioRanking = rankingPuntuacions[i]["puntuacio"];
-                let paraulaRanking = rankingPuntuacions[i]["paraula"];
-
-                 if(table.classList.contains("paraula")) {
-                    tbody.innerHTML+= 
-                "<tr> <td>"+ posicio +"</td> <td>" + paraulaRanking + "</td> <td> <div class='fotoPerfil'>" + nomUsuariRanking.substring(0, 1)
-                + "</div> </td> <td>"+ nomUsuariRanking +"</td> <td>"+ puntuacioRanking + "</td></tr>";
-                }else {
-                    tbody.innerHTML+= 
-                    "<tr> <td>"+ posicio +"</td>  <td> <div class='fotoPerfil'>" + nomUsuariRanking.substring(0, 1)
-                    + "</div> </td> <td>"+ nomUsuariRanking +"</td> <td>"+ puntuacioRanking + "</td></tr>";
-                }
-
-                
-            };
-        })
-    }else {
-        console.log("array buit");
-    }
+function mostrarOcultarJoc(input){
+if(input == 'mostrar'){
+    divsJoc.forEach((div)=>{
+        div.classList.add("active");
+    })
+}else if(input == 'ocultar') {
+    divsJoc.forEach((div)=>{
+        div.classList.remove("active");
+    })
+}
 }
 
 //EVENTS
 
-
-//ACTIVAR MES ENVANT!!!
-// let contaEnrera;
-// window.addEventListener('keydown', (e)=>{
-//     if(intentsRestants == 7) {
-//     contaEnrera = setInterval(temporitzador,1000);
-//     };
-    
-//     // revisar
-//       intentsRestants--;
-//       spanIntentsRestants.innerText = intentsRestants;
-//       if(intentsRestants == 0) {
-//           console.log("T has quedat sense intents");
-//       };
-   
-   
-
-//     // Guardam la lletra pitjada
-//     let lletra = document.querySelector('.tecla#' + e.key);
-//     lletra.classList.toggle('seleccionat');
-    
-//     //guardam la lletre pitjada a l'array de lletres jugades
-//     lletresJugades.push(lletra.id);
-  
-// });
-
-// window.addEventListener('keyup', (e)=> {
-//     let lletra = document.querySelector('.tecla#' + e.key);
-
-  
-
-//      if(comprobarLletra(lletra.id) == true ) {
-//         lletra.classList.add('correcta');
-//      }else {
-//         lletra.classList.add('incorrecta');
-//         lletresIncorrectes.push(lletra.id);
-//         contadorErrors++;
-//         numErrors.innerText = contadorErrors;
-
-//      };
-
-//      console.log(lletresCorrectes);
-
-//      if(comprobarPartida() == true) {
-//         console.log("Enhorabona, has guanyat la partidaa");
-//      };
-
-// });
+        
+btnJugar.addEventListener('click', (e)=>{
+    if(nomUsuari.value.length > 0){
+        mostrarOcultarJoc("mostrar");
+        btnJugar.classList.add("hidden");
+    }
+})
 
 let elCrono;
 
-   
-    
-        // laContaEnrera =  setInterval(contaEnrera,1000);
+
     
 
     teclat.addEventListener('click', (e)=>{
@@ -401,11 +372,6 @@ let elCrono;
                 console.log(rankingPuntuacions.length);
                 console.log(puntuacio);
             
-                //miram el ranking
-            //     for(let i = 0; i < rankingPuntuacions.length; i++) {
-            //     console.log(rankingPuntuacions[i]);
-            
-            // };
 
         };
          
@@ -414,14 +380,29 @@ let elCrono;
                     console.log("Partida guanyada!!"); 
                     elCrono = clearInterval(elCrono);
                     laContaEnrera = clearInterval(laContaEnrera);
+                    
+                    divJocAcabat.querySelector("p").innerText = "Enhorabona!! Has Guanyat"; 
+                    spanParaulaJugada.innerText = paraultaArrayToString(paraulaPartida);
+                    mostrarOcultarJoc("ocultar");
+                    divJocAcabat.classList.add("active");
                 }else if(intentsRestants == 0) {
                     console.log("partida perduda, no queden mes intents");
                     elCrono = clearInterval(elCrono);
                     laContaEnrera = clearInterval(laContaEnrera);
+                    divJocAcabat.querySelector("p").innerText = "Partida Perduda, t'has quedat sense intents";
+                    spanParaulaJugada.innerText = paraultaArrayToString(paraulaPartida);
+                    mostrarOcultarJoc("ocultar");
+                    divJocAcabat.classList.add("active");
+
                 } else if(contadorErrors == 7) {
                     console.log("Partida perduda per falls");
                     elCrono = clearInterval(elCrono);
                     laContaEnrera = clearInterval(laContaEnrera);
+                   
+                    divJocAcabat.querySelector("p").innerText = "Partida Perduda, has arribat al numero màxim d'errors";
+                    spanParaulaJugada.innerText = paraultaArrayToString(paraulaPartida);
+                    mostrarOcultarJoc("ocultar");
+                    divJocAcabat.classList.add("active");
                 }
             
         
@@ -446,7 +427,7 @@ const classParaulaSecreta = document.querySelectorAll(".paraulaSecreta");
 console.log(paraulaPartida);
 
 localStorageToArray();
-pintarRankingPuntuacions();
+
 
 
 console.log(rankingPuntuacions);

@@ -2,10 +2,19 @@ Dia 1:
 He creat els events listeners de quan premem una tecla i tambe he creat el html i els seus estils
 
 Dia 2:
-He creat la funcio per comprobar si la lletra espitjada es correcte, tambe he creat la funcio per comporobar si hem guanyat la partida i la del temporitzador.
+He creat la funcio per comprobar si la lletra espitjada es correcte, tambe he creat la funcio per comporobar si hem guanyat la partida i la del cronometre.
 
 Dia 3:
 He creat el ranking de puntuacions i les guard dins un array, tambe he creat el input per posar el teu nom d'usuari
 
 Dia 4:
 He guardat les partides al localstoratge i tambe  creat la funcio que ompleix el ranking de puntuacions, introdueix les dades al html, i tambe he ordenat l'array de puntuacions per ordre de puntuacio
+
+Dia 5:
+He afegit una conta enrera en la que si el contador arriba a 0 et descompte 1 intent
+
+Dia 6:
+He cambiat la estructura del json i he modificat les funcions necesaries perque s'ajustin al cambi fet al json, he afegit una clau al json amb a que fa referencia, nomUsuari,puntuacio...
+
+Dia 7:
+He cambiat la estructura del projecte, he afegit una pagina principal, en la que pots escollir si jugar una partida o veure el ranking de les puntuacions
