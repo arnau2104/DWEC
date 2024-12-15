@@ -23,7 +23,7 @@ Per poder executar aquest projecte, només es necessita un navegador web modern 
 No és necessari cap sistema operatiu o programari específic per executar l'aplicació, ja que el projecte és completament basat en web.
 
 ■ Instalació i configuracio:
-L'unic que necesites per utilitzar el joc es l'enllaç al githubpages on hi ha el joc publicat, l'enllaç es el següent: 
+L'unic que necesites per utilitzar el joc es l'enllaç al githubpages on hi ha el joc publicat, l'enllaç es el següent: https://arnau2104.github.io/DWEC/Joc%20Penjat/index.html
 El joc no necesita cap tipus de configuració, es configura tot sol.
 
 ■ Us del projecte:
