@@ -1,4 +1,29 @@
-const llistaParaules = ['bolla','guerra', 'futbol', 'cotxe'];
+const llistaParaules = [
+  'bossa',
+  'guerra',
+  'futbol',
+  'cotxe',
+  'llibre',
+  'taula',
+  'cadira',
+  'mobil',
+  'escacs',
+  'basquet',
+  'platja',
+  'muntanya',
+  'ciutat',
+  'amistat',
+  'familia',
+  'tradicio',
+  'aigua',
+  'avio',
+  'natura',
+  'escola',
+  'ordinador',
+  'teatre',
+  'musica',
+  'jardi'
+];
 let rankingPuntuacions = new Array(0);
 let tbody = document.querySelector("tbody");
 
