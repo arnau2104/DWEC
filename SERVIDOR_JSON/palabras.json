@@ -1,9 +1,14 @@
 {
   "palabras": [
     {
-      "id": 1,
-      "palabra": "Primera",
-      "dificultad": 2
+      "id": "1",
+      "palabra": "Primera1",
+      "dificultad": 3
+    },
+    {
+      "id": "2",
+      "palabra": "Segona",
+      "dificultad": 1
     }
   ]
 }
