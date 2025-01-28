@@ -14,3 +14,14 @@
     background-color: #fff;
     border-radius: 10px;
 }
+
+.nodal h2 {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.modal .externo-boton {
+    border: 4px solid #333;
+    font-size: 18px;
+    text-transform: uppercase;
+}

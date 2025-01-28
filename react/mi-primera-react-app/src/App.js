@@ -1,26 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
 import React,{ useState } from 'react';
 import Titulo from './components/Titulo';
 import Modal from './components/Modal';
+import EventosLista from './components/EventosLista';
+import EventoNuevoForm from './components/EventoNuevoForm';
 
 // HOOK
 // useState
 //PROPS
 
+//EventosLista.js
 function App() {
-
+  const [muestraModal, setMuestraModal] = useState(false);
   const [mostrarEventos, setMostrarEventos] = useState(true);
 
   //const [nombre, setNombre] = useState("Arnau");
 
-  const [eventos, setEventos] = useState([
-    {titulo: "examen dwec", id:1},
-    {titulo: "concurso programame", id:2},
-    {titulo: "fiesta sant antoni", id:3}
-  ]);
+  const [eventos, setEventos] = useState([]);
 
+  const addEvento = (evento)=> {
+      setEventos((eventosPrevios)=> {
+        return [...eventosPrevios, evento];
+      })
 
+      setMuestraModal(false);
+  }
 
   const handleClick = (id)=> {
 
@@ -30,6 +34,10 @@ function App() {
       })
     })
 
+  }
+
+  const handleAbrir = () => {
+    setMuestraModal(true);
   }
 
   const subTItulo = "Todos los eventos para Desarrollo de Aplicaciones Web";
@@ -48,18 +56,14 @@ function App() {
           <button onClick = {()=> setMostrarEventos(true)} > Mostrar Eventos</button>
         </div>
        )}
-      {mostrarEventos && eventos.map((evento,index) => (
-       <React.Fragment key = {evento.id}>
-          <h2>{index} - {evento.titulo}</h2>
-          <button onClick = {() => handleClick(evento.id)}> Eliminar Evento</button>
-        </React.Fragment>
-      )
-       )}
-       <Modal>
-       <h2> Stem Talks </h2>
-       <p> No te lo pierdas: 30 y 31 de enero</p>
-       <a href='https://gdg.community.dev/events/details/google-gdg-menorca-presents-stem-talks-menorca-2024-dia-1/' target='_blank'>¡Haz clic aquí!</a>
-       </Modal>
+      {mostrarEventos && <EventosLista eventos={eventos} handleClick={handleClick} /> }
+
+      <br/>
+       <button id="mostrarModal" onClick={handleAbrir}>Crear Nuevo Evento</button>
+
+       { muestraModal && <Modal destino = {document.body} esExterno={true}>
+       <EventoNuevoForm  addEvento = {addEvento}/>
+       </Modal>}
     </div>
   );
 }
