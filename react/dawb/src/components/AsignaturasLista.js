@@ -2,61 +2,48 @@ import { useState } from "react";
 import { useFetch } from "../hooks/useFetch";
 import "./AsignaturasLista.css";
 
-export default function AsignaturasLista() {
+export default function AsignaturasLista({actualizar}) {
   
   const [url, setUrl] = useState('http://localhost:3000/asignatures');
-  const [datosJSON, setDatosJSON] = useState(null);
+  // const [datosJSON, setDatosJSON] = useState('');
   const [nombre, setNombre] = useState('');
   const [horas_totales, setHoras_Totales] = useState('');
   const [idioma, setIdioma] = useState('');
       
-  const {datos: asignaturas, cargando, error} = useFetch(url,datosJSON);
+  const {datos: asignaturas, cargando, error} = useFetch(url,actualizar);
 
-  const resetForm = ()=> {
-    setNombre('');
-    setHoras_Totales('');
-    setIdioma('');
-}
+//   const resetForm = ()=> {
+//     setNombre('');
+//     setHoras_Totales('');
+//     setIdioma('');
+// }
 
-  let datosFormulario = {
-    "nombre" : nombre ,
-    "horas totales" : horas_totales ,
-    "idioma" : idioma 
-  }
+//   let datosFormulario = {
+//     "nombre" : nombre ,
+//     "horas totales" : horas_totales ,
+//     "idioma" : idioma 
+//   }
 
-  let handleSubmit = (e)=> {
-      e.preventDefault();
-      setDatosJSON({
-      method: "POST",
-      body: JSON.stringify(datosFormulario),
-      headers: {
+//   let handleSubmit = (e)=> {
+//       e.preventDefault();
+//      fetch(url, {
+//       method: "POST",
+//       body: JSON.stringify(datosFormulario),
+//       headers: {
+//           "Content-type": "application/json"     
+//           }
+//     });
 
-          "Content-type": "application/json"
-          
-          }
-    })
-
-    resetForm();
-  }
+//     resetForm();
+//     window.location.reload();
+//   }
 
   
-    // method: "POST",
-    // body: JSON.stringify(asignatura),
-    // headers: {
-
-    //     "Content-type": "application/json"
-        
-    //     }
-
-  //Aray de Dependencias
-    
-
-    
 
     return (
     <div className="asignatura-lista">
 
-      <form method="post" className="asignatura-nueva-form" name="asignatura_nueva_form">
+      {/* <form method="post" className="asignatura-nueva-form" name="asignatura_nueva_form">
         <label>
           <span>Nombre de la Asignatura</span>
           <input type="text" name="nombre" onChange={(e)=>setNombre(e.target.value)} value={nombre} />
@@ -75,7 +62,8 @@ export default function AsignaturasLista() {
 
         <button type="submit" onClick={handleSubmit}>Crear</button>
 
-      </form>
+      </form> */}
+
 
       <h2>Listado de Asignaturas</h2>
       {cargando && <div>Cargando Asignaturas...</div>}

@@ -25,9 +25,21 @@
       "idioma": "Inglés"
     },
     {
-      "id": "594d",
-      "nombre": "Educacion fisica",
+      "id": "dd4f",
+      "nombre": "ED",
+      "horas totales": "120",
+      "idioma": "Inglés"
+    },
+    {
+      "id": "c023",
+      "nombre": "Educacion Fisica",
       "horas totales": "100",
+      "idioma": "Castellano"
+    },
+    {
+      "id": 399,
+      "nombre": "Asignatura Nueva",
+      "horas totales": "200",
       "idioma": "Inglés"
     }
   ]

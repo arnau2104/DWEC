@@ -1,0 +1,23 @@
+{
+    "receptes": [
+        {
+            "id": "1",
+            "nom": "Vianda",
+            "autor": "Erik Michelin",
+            "ingredients" : ["caldo casero", "maravella", "pilotes"],
+            "elaboracio": "Para hacer una vianda equilibrada, elige una proteína (pollo, pescado, legumbres), un carbohidrato (arroz, pasta, batata) y vegetales. Cocina de forma saludable, deja enfriar antes de guardarla en un recipiente hermético y transpórtala en una bolsa térmica si es necesario."
+        }, {
+            "id": "2",
+            "nom": "Crepes",
+            "autor": "Sergi",
+            "ingredients" : ["llet", "ous","farina","sucre"],
+            "elaboracio": "Para hacer un crep, mezcla 1 taza de harina, 1 taza de leche, 1 huevo y una pizca de sal hasta obtener una masa líquida. Vierte una capa fina en una sartén caliente con manteca, cocina hasta que los bordes se despeguen y da vuelta. Rellena con dulce o salado y disfruta."
+        }, {
+            "id": "3",
+            "nom": "Tiramisu",
+            "autor": "Guillem",
+            "ingredients" : ["cafe", "mascarpone","sucre","congret"],
+            "elaboracio": "Para hacer un tiramisú, bate 250 g de queso mascarpone con 2 yemas y 2 cucharadas de azúcar. Moja vainillas en café y alterna capas con la crema. Refrigera al menos 4 horas y espolvorea con cacao antes de servir."
+        }
+    ]
+}

@@ -1,17 +1,20 @@
 import { useState } from 'react';
 import './App.css';
 import AsignaturasLista from './components/AsignaturasLista';
+import AsignaturaForm from './components/AsignaturaForm';
 
 //useeffect
 
 function App() {
 
-const [muestraAsignaturas, setMuestraAsignaturas] = useState(true)
+  const [actualizar, setActualizar] = useState(false);
+  const [mostrarForm, setMostrarForm] = useState(false)
 
   return (
     <div className="App">
-      <button onClick={()=> setMuestraAsignaturas(false)}>EESCONDE ASIGNATURAS</button>
-      {muestraAsignaturas && <AsignaturasLista />}
+      {mostrarForm && <AsignaturaForm setActualizar= {setActualizar}  setMostrarForm = {setMostrarForm}/> }
+       <AsignaturasLista actualizar= {actualizar} />
+        <button className='btn-añadir-asignatura' onClick={()=> setMostrarForm(true)}>Añadir Asignatura</button>
     </div>
   );
 }

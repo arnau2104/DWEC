@@ -11,18 +11,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-.btn-añadir-asignatura {
-  padding: 10px;
-  font-size: 16px;
-  flex-grow: 1;
-  background-color: rgb(143, 99, 247);
-  color: whitesmoke;
-  margin-bottom: 25px;
-  border-radius: 8px;
-}
-
-.btn-añadir-asignatura:hover {
-  scale: 1.10;
-  opacity: 80%;
-}
