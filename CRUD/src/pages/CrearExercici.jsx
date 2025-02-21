@@ -8,10 +8,29 @@ export default function CrearExercici({exercicis}) {
         e.preventDefault();
         const nom = document.crearExercici_form.nom.value;
         const muscolAfectat = document.crearExercici_form.muscolAfectat.value;
+        const divSeries = document.querySelectorAll(".serie");
+        let series = [];
+
+        divSeries.forEach((serie,index) => {
+            let pes = serie.querySelector(".pes").value;
+            let repeticions = serie.querySelector(".repeticions").value;
+           series.push(`${pes} X ${repeticions} `);
+        })
+
         console.log(nom)
         console.log(muscolAfectat)
          console.log(+lastId + 1)
-          guardarExerciciAmbId(`${+lastId + 1}`,nom,muscolAfectat,JSON.stringify(['25 X 10','25 X 8','25 X 5']),'arnau');
+
+
+
+           guardarExerciciAmbId(`${+lastId + 1}`,nom,muscolAfectat,JSON.stringify(series),'arnau');
+    }
+
+    const afegirSerie = (e)=> {
+        e.preventDefault();
+        document.querySelector(".div-series").insertAdjacentHTML('beforeend',` <div class='serie'>
+                    <input class="pes" type="text" placeholder='Pes' /> <span> X </span> <input class="repeticions"  type="text" placeholder='Repeticions'/>
+                </div>`)
     }
 
   return (
@@ -37,11 +56,13 @@ export default function CrearExercici({exercicis}) {
         </label>
         <label>
         <span>Series</span>
-            <div>
-                <div className='serie'>
-                    <input type="text" placeholder='Pes' /> <span> X </span> <input  type="text" placeholder='Repeticions'/>
+            <div className='contenedor-series'>
+                <div className='div-series'>
+                    <div className='serie'>
+                        <input type="text" placeholder='Pes' className='pes' /> <span> X </span> <input className='repeticions'  type="text" placeholder='Repeticions'/>
+                    </div>
                 </div>
-                <button className='mes-series'> + </button>
+                <button className='mes-series' onClick={afegirSerie}> Afegir Serie </button>
             </div>
         </label>
         <button>Crear</button>

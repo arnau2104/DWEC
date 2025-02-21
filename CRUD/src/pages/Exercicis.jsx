@@ -1,35 +1,39 @@
+import { Link, NavLink } from "react-router-dom";
+import { useEffect, useState } from 'react';
+
 import { onSnapshot,collection,db } from "../firebase"
 import "./Exercici.css";
 
 export default function Exercicis({exercicis}) {
+
+
  
   const primeraLletraMajuscula = (str)=> {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
+  const veureExercici = (id)=> {
+    console.log("anar a veure exercici");
+    console.log(id)
+  }
+
   return (
     <div>
       <h2>Exercicis:</h2>
-      {onSnapshot(collection(db,"exercicis"),  (querySnapshot)=> {
-           let html="";
-          querySnapshot.forEach((doc) => {
-                  const exercici = doc.data();
-
-                  html+= `
-                  <div class="card">
-                      <h2>${exercici.nom}</h2>
-                      <p>${primeraLletraMajuscula(exercici.muscolTreballat)}</h2>
-                      <ul>Series: ${JSON.parse(exercici.series).map((serie,index)=>
-                        `<li>${serie}</li>`
-                      )}</ul>
-                  </div>    
-                  `;              
-          })
-
-          document.getElementById("container").innerHTML = html;
-      })
-    }
-    <div id="container"></div>
+        <div id="container">
+          {exercicis && exercicis.map(exercici => (
+                      <div key={exercici[0]} className="card">
+                          <h2>{exercici[1].nom}</h2>
+                          <p>{primeraLletraMajuscula(exercici[1].muscolTreballat)}</p>
+                          <ul>Series: {JSON.parse(exercici[1].series).map((serie,index)=>
+                            <li key={index}>{serie}</li>
+                          )}</ul>
+                          <button>Editar</button>
+                          <NavLink to={`/exercici/${exercici[0]}`}>Anar al exercici detallat</NavLink>    
+                      </div>    
+                
+              ))}
+    </div>
     </div>
   )
 }

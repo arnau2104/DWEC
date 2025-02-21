@@ -1,1 +1,2 @@
 Dia 1 17/02/2025: He creat la base de dades de Firebase i el projecte amb REACT, he creat els components Navbar(ont hi ha la barra de navegacio i ja puc navegar entre pagines), el component CrearExercici(on ja puc crear un exercici i que es guardi a la base de dades), i el component Exercicis(que ja hem llegeix els exercicis de la base de dades)
+Dia 2 20/02/2025:

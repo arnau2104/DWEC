@@ -36,7 +36,7 @@
     padding: 30px;
     max-width: 600px;
     margin: 200px auto;
-    background-color: #e9e8e8;
+    background-color: whitesmoke;
     border-radius: 10px;
     border:  1px solid black;
 }
@@ -49,7 +49,15 @@
 }
 
 .crearExercici-form .mes-series {
-  background-color: yellowgreen;
+  background-color: rgb(15, 30, 245);
+  color: aliceblue;
   width: 50%;
-  border-radius: 10px;
+  border-radius: 6px;
+}
+
+.contenedor-series {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

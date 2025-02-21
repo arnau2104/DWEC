@@ -38,3 +38,18 @@ export const guardarExerciciAmbId = async (id,nom,muscolTreballat,series,autor) 
   export {
     onSnapshot,collection,db
   }
+
+  export const  agafarExerciciPerId = (id)=> {
+    return db.collection('exercicis').doc(id).get()
+      .then((doc) => {
+        if (doc.exists) {
+          return doc.data(); // Devuelves los datos del item
+        } else {
+          throw new Error("El item no existe.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error al obtener el item:", error);
+        throw error; // Lanzamos el error para manejarlo más arriba si es necesario
+      });
+  }
