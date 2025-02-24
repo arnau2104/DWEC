@@ -25,6 +25,10 @@
   width: 25px;
 }
 
+.App .lupa:hover {
+  cursor: pointer;
+}
+
 .App #cercador {
 border-radius: 5px;
 padding: 5px;

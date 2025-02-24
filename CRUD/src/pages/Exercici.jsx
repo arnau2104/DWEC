@@ -43,7 +43,7 @@ export default function Exercici() {
       <h2>{exercici[1].nom}</h2>
       <p>{primeraLletraMajuscula(exercici[1].muscolTreballat)}</p>
       <ul>Series: {JSON.parse(exercici[1].series).map((serie,index)=>
-        <li key={index}>{serie}</li>
+        <li key={index}>{`${serie[0]} x ${serie[1]}`}</li>
       )}</ul>
     </div>    }
 

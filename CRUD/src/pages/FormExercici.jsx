@@ -18,6 +18,13 @@ export default function CrearExercici({exercicis}) {
           console.error("Error:", error.message);
         }
       }
+
+      const afegirSerie = (e)=> {
+        e.preventDefault();
+        document.querySelector(".div-series").insertAdjacentHTML('beforeend',` <div class='serie'>
+                    <input class="pes" type="text" placeholder='Pes' /> <span> X </span> <input class="repeticions"  type="text" placeholder='Repeticions'/>
+                </div>`)
+    }
     
 
     if(paramId) {
@@ -30,15 +37,22 @@ export default function CrearExercici({exercicis}) {
         if(exercici) {
             // console.log(exercici)
 
-            document.exercici_form.nom.value = exercici[1].nom;
-            document.exercici_form.muscolAfectat.value = exercici[1].muscolTreballat;
-            // exercici[1].series.forEach((serie,index)=> {
-            //     serie = JSON.parse(serie);
-            //     if(index == 0) {
-            //         document.querySelector('.pes').value = serie
-            //     }
-            // })
             
+                document.exercici_form.nom.value = exercici[1].nom;
+                document.exercici_form.muscolAfectat.value = exercici[1].muscolTreballat;
+                JSON.parse(exercici[1].series).forEach((serie,index)=> {
+                    // serie = JSON.parse(serie);
+                    if(index == 0) {
+                        document.querySelector('.pes').value = serie[0];
+                        document.querySelector('.repeticions').value = serie[1];
+                    }else { 
+                        document.querySelector('.mes-series').click();
+                        document.querySelectorAll('.pes')[index].value = serie[0];
+                        document.querySelectorAll('.repeticions')[index].value = serie[1];
+                    }
+                
+                
+            })
         }
     }
 
@@ -53,24 +67,21 @@ export default function CrearExercici({exercicis}) {
         divSeries.forEach((serie,index) => {
             let pes = serie.querySelector(".pes").value;
             let repeticions = serie.querySelector(".repeticions").value;
-           series.push(`${pes} X ${repeticions} `);
+           series.push([pes, repeticions]);
         })
 
-        console.log(nom)
-        console.log(muscolAfectat)
-         console.log(+lastId + 1)
+        // console.log(nom)
+        // console.log(muscolAfectat)
+        //  console.log(+lastId + 1)
 
 
 
-           guardarExerciciAmbId(`${+lastId + 1}`,nom,muscolAfectat,JSON.stringify(series),'arnau');
+           guardarExerciciAmbId(paramId ? `${paramId}` : `${+lastId + 1}`,nom,muscolAfectat,JSON.stringify(series),'arnau');
+
+           document.exercici_form.reset();
     }
 
-    const afegirSerie = (e)=> {
-        e.preventDefault();
-        document.querySelector(".div-series").insertAdjacentHTML('beforeend',` <div class='serie'>
-                    <input class="pes" type="text" placeholder='Pes' /> <span> X </span> <input class="repeticions"  type="text" placeholder='Repeticions'/>
-                </div>`)
-    }
+   
 
   return (
    <div>
@@ -84,6 +95,7 @@ export default function CrearExercici({exercicis}) {
             <select name='muscolAfectat'>
                 <option value="pit">Pit</option>
                 <option value="esquena">Esquena</option>
+                <option value="ombro">Ombro</option>
                 <option value="biceps">Biceps</option>
                 <option value="triceps">Triceps</option>
                 <option value="quadriceps">Quadriceps</option>
@@ -104,7 +116,7 @@ export default function CrearExercici({exercicis}) {
                 <button className='mes-series' onClick={afegirSerie}> Afegir Serie </button>
             </div>
         </label>
-        <button>Crear</button>
+        <button>{paramId ? 'Modificar' : 'Crear'}</button>
     </form>
    </div>
   )
