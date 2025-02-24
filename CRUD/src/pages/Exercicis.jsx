@@ -6,8 +6,6 @@ import "./Exercici.css";
 
 export default function Exercicis({exercicis}) {
 
-
- 
   const primeraLletraMajuscula = (str)=> {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
@@ -25,10 +23,10 @@ export default function Exercicis({exercicis}) {
                       <div key={exercici[0]} className="card">
                           <h2>{exercici[1].nom}</h2>
                           <p>{primeraLletraMajuscula(exercici[1].muscolTreballat)}</p>
-                          <ul>Series: {JSON.parse(exercici[1].series).map((serie,index)=>
+                          {/* <ul>Series: {JSON.parse(exercici[1].series).map((serie,index)=>
                             <li key={index}>{serie}</li>
-                          )}</ul>
-                          <button>Editar</button>
+                          )}</ul> */}
+                          <NavLink to={`/editarExercici/${exercici[0]}`}><button className="editar">Editar</button></NavLink>
                           <NavLink to={`/exercici/${exercici[0]}`}>Anar al exercici detallat</NavLink>    
                       </div>    
                 

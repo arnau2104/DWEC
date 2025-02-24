@@ -1,9 +1,9 @@
-.crearExercici-form {
+.exercici-form {
     width: 480px;
     margin: 60px auto;
   }
-.crearExercici-form label,
-.crearExercici-form input {
+.exercici-form label,
+.exercici-form input {
     display: block;
     text-align: left;
     width: 100%;
@@ -13,7 +13,7 @@
     font-size: 1.2em;
     border-radius: 4px;
 }
-.crearExercici-form select {
+.exercici-form select {
     display: block;
     font-size: 1.2em;
     padding: 10px;
@@ -23,14 +23,14 @@
     border: 2px solid #000;
     border-radius: 4px;
    }
-.crearExercici-form button {
+.exercici-form button {
     padding: 10px;
     font-size: 16px;
     flex-grow: 1;
     width: 100%;
   }
 
-  .crearExercici-form {
+  .exercici-form {
     width: 500px; /* Ajusta según sea necesario */
     margin: auto;
     padding: 30px;
@@ -41,14 +41,14 @@
     border:  1px solid black;
 }
 
-.crearExercici-form .serie {
+.exercici-form .serie {
   display: flex;
   gap: 10px;
   justify-content: center;
   align-items: center;
 }
 
-.crearExercici-form .mes-series {
+.exercici-form .mes-series {
   background-color: rgb(15, 30, 245);
   color: aliceblue;
   width: 50%;

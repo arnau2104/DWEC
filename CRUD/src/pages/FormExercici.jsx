@@ -1,13 +1,52 @@
 import React from 'react'
-import './CrearExercici.css'
-import { guardarExerciciAmbId } from '../firebase.js';
+import './FormExercici.css';
+import {useParams} from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { guardarExerciciAmbId,agafarExerciciPerId } from '../firebase.js';
 export default function CrearExercici({exercicis}) {
+
+    const [exercici, setExercici] = useState(null);
+    const parametres = useParams();
+    const paramId = parametres.id;
+    const agafarExercici = async ()=> {
+       
+        try {
+          const exerciciFireBase = await agafarExerciciPerId(parametres.id);
+          setExercici(exerciciFireBase);
+        
+        } catch (error) {
+          console.error("Error:", error.message);
+        }
+      }
+    
+
+    if(paramId) {
+        useEffect(()=> {
+      
+            agafarExercici();
+        
+        }, [])
+
+        if(exercici) {
+            // console.log(exercici)
+
+            document.exercici_form.nom.value = exercici[1].nom;
+            document.exercici_form.muscolAfectat.value = exercici[1].muscolTreballat;
+            // exercici[1].series.forEach((serie,index)=> {
+            //     serie = JSON.parse(serie);
+            //     if(index == 0) {
+            //         document.querySelector('.pes').value = serie
+            //     }
+            // })
+            
+        }
+    }
 
     const crearExercici = (e)=> {
         let lastId = exercicis.length > 0  ? exercicis[exercicis.length - 1][0] : 0;
         e.preventDefault();
-        const nom = document.crearExercici_form.nom.value;
-        const muscolAfectat = document.crearExercici_form.muscolAfectat.value;
+        const nom = document.exercici_form.nom.value;
+        const muscolAfectat = document.exercici_form.muscolAfectat.value;
         const divSeries = document.querySelectorAll(".serie");
         let series = [];
 
@@ -35,7 +74,7 @@ export default function CrearExercici({exercicis}) {
 
   return (
    <div>
-    <form className='crearExercici-form' name='crearExercici_form' onSubmit={crearExercici}>
+    <form className='exercici-form' name='exercici_form' onSubmit={crearExercici}>
         <label >
             <span>Nom de l'exercici</span>
             <input type="text" name='nom' />

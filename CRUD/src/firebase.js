@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-import { getFirestore,addDoc,setDoc,collection,doc,onSnapshot } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+import { getFirestore,addDoc,setDoc,collection,doc,onSnapshot,getDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -39,17 +39,18 @@ export const guardarExerciciAmbId = async (id,nom,muscolTreballat,series,autor) 
     onSnapshot,collection,db
   }
 
-  export const  agafarExerciciPerId = (id)=> {
-    return db.collection('exercicis').doc(id).get()
-      .then((doc) => {
-        if (doc.exists) {
-          return doc.data(); // Devuelves los datos del item
-        } else {
-          throw new Error("El item no existe.");
-        }
-      })
-      .catch((error) => {
-        console.error("Error al obtener el item:", error);
-        throw error; // Lanzamos el error para manejarlo más arriba si es necesario
-      });
-  }
+  export const agafarExerciciPerId = async (id) => {
+    try {
+      const referenciaDoc = doc(db, "exercicis", id); // Referencia al documento
+      const docSnap = await getDoc(referenciaDoc); // Obtiene los datos
+  
+      if (docSnap.exists()) {
+        return [docSnap.id,docSnap.data()]; // Devuelve los datos del documento
+      } else {
+        throw new Error("El ítem no existe.");
+      }
+    } catch (error) {
+      console.error("Error al obtener el ítem:", error);
+      throw error; // Relanza el error para manejarlo externamente
+    }
+  };

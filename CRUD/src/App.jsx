@@ -6,7 +6,8 @@ import { useEffect, useState } from 'react';
 
 function App() {
   const [exercicis, setExercicis] = useState([]);
-  const [cargado, setCargado] = useState(false)
+  const [cargado, setCargado] = useState(false);
+ 
   useEffect(()=>{
     onSnapshot(collection(db,"exercicis"),  (querySnapshot)=> {
          let array = [];   
@@ -24,7 +25,7 @@ function App() {
 
   return (
    <div className='App'>
-        {cargado && <Navbar cargado={cargado} exercicis={exercicis} /> }
+        {cargado && <Navbar cargado={cargado} exercicis={exercicis}  /> }
    </div>
   )
 }
