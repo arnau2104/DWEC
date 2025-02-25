@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 function App() {
   const [exercicis, setExercicis] = useState([]);
   const [cargado, setCargado] = useState(false);
+  const [totsExercicis, setTotsExercicis] = useState([]);
  
   useEffect(()=>{
     onSnapshot(collection(db,"exercicis"),  (querySnapshot)=> {
@@ -17,6 +18,7 @@ function App() {
       }    
     )
     setExercicis(array);
+    setTotsExercicis(array)
     setCargado(true);
   });
   
@@ -25,7 +27,7 @@ function App() {
 
   return (
    <div className='App'>
-        {cargado && <Navbar cargado={cargado} exercicis={exercicis}  /> }
+        {cargado && <Navbar cargado={cargado} exercicis={exercicis} setExercicis = {setExercicis} totsExercicis = {totsExercicis}  /> }
    </div>
   )
 }

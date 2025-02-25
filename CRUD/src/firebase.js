@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-import { getFirestore,addDoc,setDoc,collection,doc,onSnapshot,getDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+import { getFirestore,addDoc,setDoc,collection,doc,onSnapshot,getDoc,query,where,getDocs } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -54,3 +54,42 @@ export const guardarExerciciAmbId = async (id,nom,muscolTreballat,series,autor) 
       throw error; // Relanza el error para manejarlo externamente
     }
   };
+
+  export const consultaPersonalitzada = async (text,exercicis) => {
+    try {
+
+      const queryNom = query(
+        collection(db, "exercicis"),
+        where("nom", "==", text)
+      );
+  
+      const queryMuscolTreballat =  query(
+        collection(db, "exercicis"),
+        where("muscolTreballat", "==", text)
+      );
+  
+      const queryNomSnapshot = await getDocs(queryNom);
+      const queryMuscolTreballatSnapshot = await getDocs(queryMuscolTreballat);
+
+
+        const resultats = new Set();
+
+        queryNomSnapshot.forEach(doc => resultats.add([doc.id,doc.data()]));
+        queryMuscolTreballatSnapshot.forEach(doc => resultats.add([doc.id,doc.data()]));
+
+        if(resultats.size > 0) {
+          let array = [];
+          resultats.forEach(resultat => {
+            array.push(resultat)
+          });
+
+         return array;
+          // console.log(array);
+        }else {
+          console.log("no resultats trobats")
+        }
+
+    }catch (e) {
+      console.log("Error amb la consulta personalitzada: " + e)
+    }
+  }

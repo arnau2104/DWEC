@@ -5,6 +5,10 @@ import { useEffect, useState } from 'react';
 import { guardarExerciciAmbId,agafarExerciciPerId } from '../firebase.js';
 export default function CrearExercici({exercicis}) {
 
+    const [nom,setNom] = useState('');
+    const [muscolTreballat,setMuscolTreballat] = useState('pit');
+    const [series,setSeries] = useState([])
+
     const [exercici, setExercici] = useState(null);
     const parametres = useParams();
     const paramId = parametres.id;
@@ -27,19 +31,20 @@ export default function CrearExercici({exercicis}) {
     }
     
 
-    if(paramId) {
+ 
         useEffect(()=> {
-      
+            if(paramId) {
             agafarExercici();
-        
+            }
         }, [])
 
+        useEffect(() => {
         if(exercici) {
             // console.log(exercici)
 
             
-                document.exercici_form.nom.value = exercici[1].nom;
-                document.exercici_form.muscolAfectat.value = exercici[1].muscolTreballat;
+               setNom(exercici[1].nom);
+                setMuscolTreballat(exercici[1].muscolTreballat);
                 JSON.parse(exercici[1].series).forEach((serie,index)=> {
                     // serie = JSON.parse(serie);
                     if(index == 0) {
@@ -54,70 +59,90 @@ export default function CrearExercici({exercicis}) {
                 
             })
         }
-    }
+    },[exercici])
 
     const crearExercici = (e)=> {
-        let lastId = exercicis.length > 0  ? exercicis[exercicis.length - 1][0] : 0;
         e.preventDefault();
-        const nom = document.exercici_form.nom.value;
-        const muscolAfectat = document.exercici_form.muscolAfectat.value;
-        const divSeries = document.querySelectorAll(".serie");
-        let series = [];
+        if(exercicis || paramId) {
+            let lastId  = '';
+            if(!paramId) {
+             lastId =  exercicis.length > 0  ? exercicis[exercicis.length - 1][0] : 0;
+            }
+        
+            const divSeries = document.querySelectorAll(".serie");
+            // let series = [];
 
-        divSeries.forEach((serie,index) => {
-            let pes = serie.querySelector(".pes").value;
-            let repeticions = serie.querySelector(".repeticions").value;
-           series.push([pes, repeticions]);
-        })
+            divSeries.forEach((serie,index) => {
+                let pes = serie.querySelector(".pes").value;
+                let repeticions = serie.querySelector(".repeticions").value;
+            setSeries(series.push([pes, repeticions]));
+            })
 
-        // console.log(nom)
-        // console.log(muscolAfectat)
-        //  console.log(+lastId + 1)
+            console.log(nom)
+            console.log(muscolTreballat)
+            //  console.log(+lastId + 1)
 
 
 
-           guardarExerciciAmbId(paramId ? `${paramId}` : `${+lastId + 1}`,nom,muscolAfectat,JSON.stringify(series),'arnau');
+                guardarExerciciAmbId(paramId ? `${paramId}` : `${+lastId + 1}`,nom,muscolTreballat,JSON.stringify(series),'arnau');
 
-           document.exercici_form.reset();
+            //reiniciam el formulario
+            if(paramId) {
+                window.location.href = './Inici.jsx'
+            }else {
+                setNom('');
+                setMuscolTreballat('pit');
+                setSeries([]);
+            }
+        } else {
+            console.log('exercicis no cargats')
+        }
     }
+    
 
    
 
   return (
+
    <div>
-    <form className='exercici-form' name='exercici_form' onSubmit={crearExercici}>
-        <label >
-            <span>Nom de l'exercici</span>
-            <input type="text" name='nom' />
-        </label>
-        <label >
-            <span>Muscol Afectat</span>
-            <select name='muscolAfectat'>
-                <option value="pit">Pit</option>
-                <option value="esquena">Esquena</option>
-                <option value="ombro">Ombro</option>
-                <option value="biceps">Biceps</option>
-                <option value="triceps">Triceps</option>
-                <option value="quadriceps">Quadriceps</option>
-                <option value="quadriceps">Quadriceps</option>
-                <option value="bessons">Bessons</option>
-                <option value="femoral">Femoral</option>
-                <option value="abdominals">Abdominals</option>
-            </select>
-        </label>
-        <label>
-        <span>Series</span>
-            <div className='contenedor-series'>
-                <div className='div-series'>
-                    <div className='serie'>
-                        <input type="text" placeholder='Pes' className='pes' /> <span> X </span> <input className='repeticions'  type="text" placeholder='Repeticions'/>
+      {!exercicis && !paramId && <p>Carregant...</p>}
+      {exercicis || paramId &&
+        <form className='exercici-form' name='exercici_form' onSubmit={crearExercici}>
+            <label >
+                <span>Nom de l'exercici</span>
+                <input type="text" name='nom' value={nom} onChange={(e)=>setNom(e.target.value)} />
+            </label>
+            <label >
+                <span>Muscol Afectat</span>
+                <select name='muscolAfectat' value={muscolTreballat} onChange={(e)=> setMuscolTreballat(e.target.value)}>
+                    <option value="pit">Pit</option>
+                    <option value="esquena">Esquena</option>
+                    <option value="ombro">Ombro</option>
+                    <option value="biceps">Biceps</option>
+                    <option value="triceps">Triceps</option>
+                    <option value="quadriceps">Quadriceps</option>
+                    <option value="bessons">Bessons</option>
+                    <option value="femoral">Femoral</option>
+                    <option value="abdominals">Abdominals</option>
+                </select>
+            </label>
+            <label>
+            <span>Series</span>
+                <div className='contenedor-series'>
+                    <div className='div-series'>
+                        <div className='serie'>
+                            <input type="text" placeholder='Pes' className='pes' /> <span> X </span> <input className='repeticions'  type="text" placeholder='Repeticions'/>
+                        </div>
                     </div>
+                    <button type='button' className='mes-series' onClick={afegirSerie}> Afegir Serie </button>
                 </div>
-                <button className='mes-series' onClick={afegirSerie}> Afegir Serie </button>
-            </div>
-        </label>
-        <button>{paramId ? 'Modificar' : 'Crear'}</button>
-    </form>
+            </label>
+            <button>{paramId ? 'Modificar' : 'Crear'}</button>
+            
+        </form>
+        }
+
    </div>
+     
   )
 }
