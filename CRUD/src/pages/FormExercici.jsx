@@ -1,22 +1,27 @@
 import React from 'react'
 import './FormExercici.css';
-import {useParams} from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { guardarExerciciAmbId,agafarExerciciPerId } from '../firebase.js';
-export default function CrearExercici({exercicis}) {
+import { guardarExerciciAmbId,agafarExerciciPerId,onSnapshot,collection,db } from '../firebase.js';
+export default function FormExercici({exercicis}) {
 
     const [nom,setNom] = useState('');
     const [muscolTreballat,setMuscolTreballat] = useState('pit');
     const [series,setSeries] = useState([])
-
     const [exercici, setExercici] = useState(null);
     const parametres = useParams();
     const paramId = parametres.id;
+    const navigate = useNavigate();
+    
+
+    
     const agafarExercici = async ()=> {
        
         try {
           const exerciciFireBase = await agafarExerciciPerId(parametres.id);
-          setExercici(exerciciFireBase);
+          if(exerciciFireBase){
+            setExercici(exerciciFireBase);
+            }
         
         } catch (error) {
           console.error("Error:", error.message);
@@ -36,15 +41,15 @@ export default function CrearExercici({exercicis}) {
             if(paramId) {
             agafarExercici();
             }
-        }, [])
+        }, [paramId])
 
         useEffect(() => {
-        if(exercici) {
-            // console.log(exercici)
+        if(exercici && exercici[1]) {
+             console.log(exercici)
 
             
                setNom(exercici[1].nom);
-                setMuscolTreballat(exercici[1].muscolTreballat);
+                setMuscolTreballat(exercici[1].muscolTreballat || 'pit');
                 JSON.parse(exercici[1].series).forEach((serie,index)=> {
                     // serie = JSON.parse(serie);
                     if(index == 0) {
@@ -65,7 +70,7 @@ export default function CrearExercici({exercicis}) {
         e.preventDefault();
         if(exercicis || paramId) {
             let lastId  = '';
-            if(!paramId) {
+            if(!paramId && exercicis) {
              lastId =  exercicis.length > 0  ? exercicis[exercicis.length - 1][0] : 0;
             }
         
@@ -88,7 +93,7 @@ export default function CrearExercici({exercicis}) {
 
             //reiniciam el formulario
             if(paramId) {
-                window.location.href = './Inici.jsx'
+                navigate('/')
             }else {
                 setNom('');
                 setMuscolTreballat('pit');
@@ -106,15 +111,15 @@ export default function CrearExercici({exercicis}) {
 
    <div>
       {!exercicis && !paramId && <p>Carregant...</p>}
-      {exercicis || paramId &&
+      {(exercicis || paramId) &&
         <form className='exercici-form' name='exercici_form' onSubmit={crearExercici}>
             <label >
                 <span>Nom de l'exercici</span>
-                <input type="text" name='nom' value={nom} onChange={(e)=>setNom(e.target.value)} />
+                <input type="text" name='nom' value={nom} onChange={(e)=>setNom(e.target.value)} required/>
             </label>
             <label >
                 <span>Muscol Afectat</span>
-                <select name='muscolAfectat' value={muscolTreballat} onChange={(e)=> setMuscolTreballat(e.target.value)}>
+                <select name='muscolAfectat' value={muscolTreballat} onChange={(e)=> setMuscolTreballat(e.target.value)} required>
                     <option value="pit">Pit</option>
                     <option value="esquena">Esquena</option>
                     <option value="ombro">Ombro</option>

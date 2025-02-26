@@ -50,10 +50,10 @@ export default function Navbar({cargado,exercicis,setExercicis,totsExercicis}) {
         </nav>
         <Routes>
             <Route path='/' element={<Inici exercicis={exercicis}/>}></Route>
-          <Route path='/crearExercici' element={<FormExercici exercicis={exercicis}/>} />
+          <Route path='/crearExercici' element={<FormExercici exercicis={exercicis} />} />
           { cargado && <Route path="/exercicis" element={<Exercicis exercicis={exercicis}/>}></Route> }
           <Route path="/exercici/:id" element={<Exercici />}></Route>
-          <Route path='/editarExercici/:id' element={<FormExercici  />}></Route>
+          <Route path='/editarExercici/:id' element={<FormExercici exercicis={exercicis}/>}></Route>
         </Routes>
       </BrowserRouter>
      

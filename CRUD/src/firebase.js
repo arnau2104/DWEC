@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-import { getFirestore,addDoc,setDoc,collection,doc,onSnapshot,getDoc,query,where,getDocs } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+import { getFirestore,addDoc,setDoc,collection,doc,onSnapshot,getDoc,query,where,getDocs,deleteDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -54,6 +54,10 @@ export const guardarExerciciAmbId = async (id,nom,muscolTreballat,series,autor) 
       throw error; // Relanza el error para manejarlo externamente
     }
   };
+
+  export const borrarExercicis = async (exerciciBorrar)=> {
+    await deleteDoc(doc(db,"exercicis",exerciciBorrar));
+  }
 
   export const consultaPersonalitzada = async (text,exercicis) => {
     try {

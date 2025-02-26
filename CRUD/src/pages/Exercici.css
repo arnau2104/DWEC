@@ -26,8 +26,9 @@
     justify-content: space-between;
   }
 
-  .card .editar {
+  .card .div-svg .div-edit-delete .editar {
     text-decoration: none;
+    width: 20px;
     padding: 5px;
     border-radius: 5px;
     background-color: rgb(247, 191, 10);
@@ -43,7 +44,87 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: flex-end;
   gap: 50px;
+  width: auto;
  }
+
+#container .card .div-edit-delete {
+  display: flex;
+  flex-direction: row;
+  justify-content: baseline;
+  gap: 20px;
+ }
+
+ #container .card  .borrar {
+  width: 20px;
+  background-color: #e83b31;
+  color: rgb(0, 0, 0);
+  padding: 5px;
+  border-radius: 5px;
+ }
+
+ #container .card .borrar:hover {
+  scale: 1.2;
+  cursor: pointer;
+ } 
+
+
+ #container .confirmacio-borrar-exercici {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 85%;
+  max-width: 400px;
+  height: 200px;
+  background-color: rgba(255, 255, 255, 0.884);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  border-radius: 8px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+
+}
+#container  .confirmacio-borrar-exercici p {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 23px;
+  text-align: center;
+}
+
+#container  .btn-confirmacio-borrar {
+  background-color: #e63946;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+#container  .btn-confirmacio-borrar:hover {
+  background-color: #d62839;
+}
+
+#container .confirmacio-borrar-exercici .tancar-finestra {
+position: absolute;
+top: 0;
+right: 0;
+width: 25px;
+padding-right: 6px;
+padding-top: 4px;
+font-weight: bold;
+}
+
+#container .confirmacio-borrar-exercici .tancar-finestra:hover {
+cursor: pointer;
+}
 
   

@@ -17,6 +17,8 @@ function App() {
               array.push([doc.id,exercici]);                 
       }    
     )
+
+    array.sort((a,b) => +a[0] - +b[0]);
     setExercicis(array);
     setTotsExercicis(array)
     setCargado(true);
