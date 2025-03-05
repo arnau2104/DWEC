@@ -33,3 +33,28 @@
 border-radius: 5px;
 padding: 5px;
 }
+
+.App .div-cercador {
+  display: flex;
+  gap: 15px;
+}
+
+.App .div-sessio-iniciada {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(238, 238, 238);
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.App .div-sessio-iniciada button {
+ /* width: 50px; */
+ background-color: #333;
+ color: aliceblue;
+ padding: 4px;
+ border-radius: 8px;
+}
+
+.App .div-sessio-iniciada button:hover {
+cursor: pointer;
+}

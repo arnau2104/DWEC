@@ -13,24 +13,22 @@ export default function LogIn({usuariActiu,setUsuariActiu}) {
     const [missatge, setMissatge] = useState([0,'']);
     const navigate = useNavigate();
 
-    // useEffect(()=> {
-    //     console.log(usuariActiu);
-    // },[usuariActiu])
+    
 
-    useEffect(()=>{
-        onSnapshot(collection(db,"usuaris"),  (querySnapshot)=> {
-            let array = [];   
-         querySnapshot.forEach((doc) => {
-                 const exercici = doc.data();
-                 array.push([doc.id,exercici]);                 
-         }    
-       )
+    // useEffect(()=>{
+    //     onSnapshot(collection(db,"usuaris"),  (querySnapshot)=> {
+    //         let array = [];   
+    //      querySnapshot.forEach((doc) => {
+    //              const exercici = doc.data();
+    //              array.push([doc.id,exercici]);                 
+    //      }    
+    //    )
    
-       array.sort((a,b) => +a[0] - +b[0]);
-       setUsuaris(array);
-       setCargat(true);
-     });
-    },[])
+    //    array.sort((a,b) => +a[0] - +b[0]);
+    //    setUsuaris(array);
+    //    setCargat(true);
+    //  });
+    // },[])
     
     const crearUsuari = (e)=> {
         e.preventDefault();
@@ -47,7 +45,7 @@ export default function LogIn({usuariActiu,setUsuariActiu}) {
                 setTimeout(()=>{
 
                     navigate('/');
-                    setUsuariActiu([`${id}`,[{username,password}]]);
+                    setUsuariActiu([`${id}`,{username,password}]);
                     // console.log(usuariActiu);
                     setUsername('');
                     setPassword('');
@@ -63,6 +61,40 @@ export default function LogIn({usuariActiu,setUsuariActiu}) {
             setMissatge([1,'Es necessari omplir tots els camps!'])
         }
     }
+
+    const iniciarSessio = (e)=> {
+        e.preventDefault();
+
+        onSnapshot(collection(db,"usuaris"),  (querySnapshot)=> {
+           let logIn = false;  
+         querySnapshot.forEach((doc) => {
+                const usuari = doc.data();
+                // console.log(usuari.username , username , usuari.password ,password)
+                if(usuari.username == username && usuari.password == password) {
+                     logIn = true;
+                    setMissatge([0, 'Sessió Iniciada correctament!']);
+                     setUsuariActiu([`${doc.id}`,usuari]);
+                    //  console.log(usuariActiu)
+                    
+                    
+                    
+                }           
+         }
+       
+       )
+
+       if(logIn) {
+        setTimeout(()=> {
+            navigate('/');
+        },2000)
+       }else {
+         setMissatge([1, 'Usuari o Contrassenya incorrecte!!'])
+       }
+   
+      
+     });
+    }
+
     return (
    <div>
     <form className='logIn-form' name='logIn-form' >
@@ -84,7 +116,7 @@ export default function LogIn({usuariActiu,setUsuariActiu}) {
         </label>
 
         <div className='btns-enviar'>
-            <button className='enviar'>Incia Sessió</button>
+            <button className='enviar' onClick={iniciarSessio}>Incia Sessió</button>
             <button className='enviar' onClick={crearUsuari}>Crear Usuari</button>
         </div>
 

@@ -3,7 +3,7 @@ import './FormExercici.css';
 import {useParams, useNavigate} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { guardarExerciciAmbId,agafarExerciciPerId,onSnapshot,collection,db } from '../firebase.js';
-export default function FormExercici({exercicis}) {
+export default function FormExercici({exercicis,usuariActiu}) {
 
     const [nom,setNom] = useState('');
     const [muscolTreballat,setMuscolTreballat] = useState('pit');
@@ -86,13 +86,18 @@ export default function FormExercici({exercicis}) {
             setSeries(series.push([pes, repeticions]));
             })
 
-            console.log(nom)
-            console.log(muscolTreballat)
+            // console.log(nom)
+            // console.log(muscolTreballat)
             //  console.log(+lastId + 1)
 
 
-
-                guardarExerciciAmbId(paramId ? `${paramId}` : `${+lastId + 1}`,nom,muscolTreballat,JSON.stringify(series),'arnau');
+                if(usuariActiu.length > 0) {
+                    guardarExerciciAmbId(paramId ? `${paramId}` : `${+lastId + 1}`,nom,muscolTreballat,JSON.stringify(series),usuariActiu[1].username);
+                }else {
+                    setTimeout(()=> {
+                        navigate('/login');
+                    },2000)
+                }
 
             //reiniciam el formulario
             if(paramId) {
@@ -100,7 +105,7 @@ export default function FormExercici({exercicis}) {
             }else {
                 setNom('');
                 setMuscolTreballat('pit');
-                setSeries([]);
+                setSeries(['','']);
             }
         } else {
             console.log('exercicis no cargats')

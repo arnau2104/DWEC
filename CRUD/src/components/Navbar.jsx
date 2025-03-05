@@ -8,17 +8,17 @@ import Exercicis from '../pages/Exercicis';
 import Exercici from '../pages/Exercici';
 import LogIn from '../pages/LogIn.jsx';
 
-export default function Navbar({cargado,exercicis,setExercicis,totsExercicis}) {
+export default function Navbar({cargado,exercicis,setExercicis,totsExercicis,usuariActiu,setUsuariActiu}) {
+  
   // console.log(totsExercicis);
 
-  const [usuariActiu, setUsuariActiu] = useState([]);
 
   const [mostrarInput,setMostrarInput] = useState(false);
   console.log(exercicis)
 
   const cercadorDinamic  = async (text) => {
     if(!text == '') {
-      const consulta = await consultaPersonalitzada(text,exercicis);
+      const consulta = await consultaPersonalitzada(text,exercicis,usuariActiu[1].username);
       // console.log(consulta)
       setExercicis(consulta);
     }else {
@@ -44,21 +44,32 @@ export default function Navbar({cargado,exercicis,setExercicis,totsExercicis}) {
          {cargado && <NavLink  to= "/">Inici</NavLink>}
          {cargado && exercicis && <NavLink to="/exercicis">Exercicis</NavLink> }
         {cargado &&  <NavLink to="/crearExercici">Crear Exercici</NavLink>  }
-        <div className='div-cercador'>
+         <div className='div-cercador'>
+         {usuariActiu.length > 0 &&
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="lupa" onClick={()=> afegirInput()}>
             <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-          </svg>
+          </svg> }
+       
           {mostrarInput && <input type="text" id="cercador" onInput ={(e)=>cercadorDinamic(e.target.value)}></input>}
-          <NavLink to="/logIn">{usuariActiu ? 'Log Out' : 'Log In'}</NavLink> 
+
+          {usuariActiu.length > 0 && 
+            <div className='div-sessio-iniciada'>
+              <p>Benvingut {usuariActiu[1].username}</p>
+              <button>Tancar Sessió</button>
+              </div>
+          }
+        
+        {usuariActiu.length == 0 &&  <NavLink to="/logIn">Log In</NavLink>} 
       </div>
+       
      
         </nav>
         <Routes>
             <Route path='/' element={<Inici exercicis={exercicis}/>}></Route>
-          <Route path='/crearExercici' element={<FormExercici exercicis={exercicis} />} />
+          <Route path='/crearExercici' element={<FormExercici exercicis={exercicis} usuariActiu={usuariActiu} />} />
           { cargado && <Route path="/exercicis" element={<Exercicis exercicis={exercicis}/>}></Route> }
           <Route path="/exercici/:id" element={<Exercici />}></Route>
-          <Route path='/editarExercici/:id' element={<FormExercici exercicis={exercicis}/>}></Route>
+          <Route path='/editarExercici/:id' element={<FormExercici exercicis={exercicis} usuariActiu={usuariActiu}/>}></Route>
           <Route path='/logIn' element={<LogIn  usuariActiu={usuariActiu} setUsuariActiu={setUsuariActiu}/>}></Route>
         </Routes>
       </BrowserRouter>

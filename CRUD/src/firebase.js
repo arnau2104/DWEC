@@ -59,17 +59,19 @@ export const guardarExerciciAmbId = async (id,nom,muscolTreballat,series,autor) 
     await deleteDoc(doc(db,"exercicis",exerciciBorrar));
   }
 
-  export const consultaPersonalitzada = async (text,exercicis) => {
+  export const consultaPersonalitzada = async (text,exercicis,usuariActiu) => {
     try {
 
       const queryNom = query(
         collection(db, "exercicis"),
-        where("nom", "==", text)
+        where("nom", "==", text),
+        where("autor", "==", usuariActiu)
       );
   
       const queryMuscolTreballat =  query(
         collection(db, "exercicis"),
-        where("muscolTreballat", "==", text)
+        where("muscolTreballat", "==", text),
+        where("autor", "==", usuariActiu)
       );
   
       const queryNomSnapshot = await getDocs(queryNom);
@@ -80,6 +82,40 @@ export const guardarExerciciAmbId = async (id,nom,muscolTreballat,series,autor) 
 
         queryNomSnapshot.forEach(doc => resultats.add([doc.id,doc.data()]));
         queryMuscolTreballatSnapshot.forEach(doc => resultats.add([doc.id,doc.data()]));
+
+        if(resultats.size > 0) {
+          let array = [];
+          resultats.forEach(resultat => {
+            array.push(resultat)
+          });
+
+         return array;
+          // console.log(array);
+        }else {
+          console.log("no resultats trobats")
+        }
+
+    }catch (e) {
+      console.log("Error amb la consulta personalitzada: " + e)
+    }
+  }
+
+  export const agafarExercicisUsuariConcret = async (usuariActiu) => {
+    try {
+
+      const queryExercicis= query(
+        collection(db, "exercicis"),
+        where("autor", "==", usuariActiu)
+      );
+  
+      
+  
+      const queryExercicisSnapshot = await getDocs(queryNom);
+
+
+        const resultats = new Set();
+
+        queryNomSnapshot.forEach(doc => resultats.add([doc.id,doc.data()]));
 
         if(resultats.size > 0) {
           let array = [];
