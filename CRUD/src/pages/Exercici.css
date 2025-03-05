@@ -58,8 +58,8 @@
 
  #container .card  .borrar {
   width: 20px;
-  background-color: #e83b31;
-  color: rgb(0, 0, 0);
+  background-color: #e63946;
+  color: #333;
   padding: 5px;
   border-radius: 5px;
  }

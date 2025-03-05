@@ -97,3 +97,15 @@ export const guardarExerciciAmbId = async (id,nom,muscolTreballat,series,autor) 
       console.log("Error amb la consulta personalitzada: " + e)
     }
   }
+
+  export const guardarUsuariAmbId = async (id,username,password) => {
+    try {
+      await setDoc(doc(db, "usuaris", id), {
+        username,
+        password
+      });
+      console.log("User saved with custom ID:", id);
+    } catch(error) {
+      console.log("Error saving user with custom ID:", error)
+    }
+  }

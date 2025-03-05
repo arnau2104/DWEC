@@ -8,6 +8,7 @@ function App() {
   const [exercicis, setExercicis] = useState([]);
   const [cargado, setCargado] = useState(false);
   const [totsExercicis, setTotsExercicis] = useState([]);
+  
  
   useEffect(()=>{
     onSnapshot(collection(db,"exercicis"),  (querySnapshot)=> {
@@ -23,6 +24,8 @@ function App() {
     setTotsExercicis(array)
     setCargado(true);
   });
+
+  
   
   
 },[]);

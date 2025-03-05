@@ -12,6 +12,7 @@ export default function FormExercici({exercicis}) {
     const parametres = useParams();
     const paramId = parametres.id;
     const navigate = useNavigate();
+    const [error,setError] = useState(false);
     
 
     
@@ -25,6 +26,8 @@ export default function FormExercici({exercicis}) {
         
         } catch (error) {
           console.error("Error:", error.message);
+            setTimeout(()=>navigate('/'),2000);
+            setError(true);
         }
       }
 
@@ -51,7 +54,7 @@ export default function FormExercici({exercicis}) {
                setNom(exercici[1].nom);
                 setMuscolTreballat(exercici[1].muscolTreballat || 'pit');
                 JSON.parse(exercici[1].series).forEach((serie,index)=> {
-                    // serie = JSON.parse(serie);
+                   
                     if(index == 0) {
                         document.querySelector('.pes').value = serie[0];
                         document.querySelector('.repeticions').value = serie[1];
@@ -110,8 +113,9 @@ export default function FormExercici({exercicis}) {
   return (
 
    <div>
+    {error && <p>Exercici no trobat, redirigint a la pagina principal</p>}
       {!exercicis && !paramId && <p>Carregant...</p>}
-      {(exercicis || paramId) &&
+      {(exercicis || paramId) && !error && 
         <form className='exercici-form' name='exercici_form' onSubmit={crearExercici}>
             <label >
                 <span>Nom de l'exercici</span>

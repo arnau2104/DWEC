@@ -6,12 +6,16 @@ import Inici from '../pages/Inici';
 import FormExercici from '../pages/FormExercici';
 import Exercicis from '../pages/Exercicis';
 import Exercici from '../pages/Exercici';
+import LogIn from '../pages/LogIn.jsx';
 
 export default function Navbar({cargado,exercicis,setExercicis,totsExercicis}) {
   // console.log(totsExercicis);
 
+  const [usuariActiu, setUsuariActiu] = useState([]);
+
   const [mostrarInput,setMostrarInput] = useState(false);
   console.log(exercicis)
+
   const cercadorDinamic  = async (text) => {
     if(!text == '') {
       const consulta = await consultaPersonalitzada(text,exercicis);
@@ -45,6 +49,7 @@ export default function Navbar({cargado,exercicis,setExercicis,totsExercicis}) {
             <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
           </svg>
           {mostrarInput && <input type="text" id="cercador" onInput ={(e)=>cercadorDinamic(e.target.value)}></input>}
+          <NavLink to="/logIn">{usuariActiu ? 'Log Out' : 'Log In'}</NavLink> 
       </div>
      
         </nav>
@@ -54,6 +59,7 @@ export default function Navbar({cargado,exercicis,setExercicis,totsExercicis}) {
           { cargado && <Route path="/exercicis" element={<Exercicis exercicis={exercicis}/>}></Route> }
           <Route path="/exercici/:id" element={<Exercici />}></Route>
           <Route path='/editarExercici/:id' element={<FormExercici exercicis={exercicis}/>}></Route>
+          <Route path='/logIn' element={<LogIn  usuariActiu={usuariActiu} setUsuariActiu={setUsuariActiu}/>}></Route>
         </Routes>
       </BrowserRouter>
      
