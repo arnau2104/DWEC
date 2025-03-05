@@ -2,3 +2,4 @@ Dia 1 17/02/2025: He creat la base de dades de Firebase i el projecte amb REACT,
 DIa 2: Avui he implementat la funcio9 de editar noticies, he reutilitzat el component de crear noticies per poder editarles tambe
 Dia 3 20/02/2025: Avui he implementat el cercador de exercicis, pero tenc un problema amb el formulari de crear y editar exercicis
 Dia 4 26/02/2025: Avui he soluciona el problema que tenia amb el formulari de crear y modificar exercicis, i també he implementat la funcio de poder borrar exercicis
+Dia 5 05/03/2025: Avui he creat el component de log in, on puc iniciar sessio o crearme un usuari, tambe he actualitzar la consulta que agafa els exercicis perque nomes hem agafi els de el usuari que ha iniciat sessio, i tambe he fet que no pots crear exercicis sense tenir la sessio iniciada
