@@ -1,0 +1,66 @@
+Documentació del projecte: Gestió d'Exercicis al Gimnàs
+1. Introducció:
+Aquest projecte consisteix en una aplicació web creada amb React, amb la finalitat de permetre als usuaris gestionar els seus exercicis al gimnàs. La web permet als usuaris afegir, modificar i eliminar exercicis, així com guardar les dades associades a cada exercici, com són el nom, les sèries, el pes i les repeticions. Els usuaris poden emmagatzemar les imatges dels exercicis i veure les descripcions per millorar la seva rutina d'entrenament.
+
+2. Instal·lació i configuració
+Per executar el projecte en un entorn local, segueix els següents passos:
+
+    2.1 Clonar el repositori:
+        Obre una terminal i clona el repositori a la teva màquina local:
+
+        git clone https://github.com/arnau2104/DWEC/tree/master/CRUD
+    
+    2.2 Instal·lar les dependències:
+        Un cop clonat el repositori, accedeix a la carpeta del projecte i executa el següent comandament per instal·lar totes les dependències necessàries:
+
+        cd carpeta-projecte
+        npm install
+
+    2.3 Configurar Firebase:
+        El projecte utilitza Firebase per emmagatzemar dades i imatges. Hauràs de crear un projecte a Firebase, obtenir les credencials i afegir-les al fitxer firebase.js dins del directori src.
+
+    2.4 Executar el projecte:
+        Un cop configurat tot, pots executar el servidor de desenvolupament amb:
+
+        npm run dev
+        Accedeix a l'aplicació a través de http://localhost:5173/
+
+3. Estructura del codi
+L'estructura principal del codi és la següent:
+
+
+    /src
+    /pages
+        - FormExercici.jsx: Component per afegir o modificar un exercici.
+        - Exercici.jsx: Component per veure els detalls d'un exercici.
+        - Exercicis.jsx: Component per veure tots els teus exercicis.
+        - Inici.jsx: Component on es dona la benvinguda a la pagina i s'explica el proposit d'ella
+        -LogIn.jsx: Component en el que es permet iniciar sessió o registrarse
+    
+    /components
+        - NavBar.jsx: Component que inclueix la barra de navegacio, serveig per mourer-se atraves de tot al web.
+        - SearchBar.jsx: Component  ue permet fer recerques personalitzades.
+
+
+    /firebase.js: Configuració de Firebase per interactuar amb la base de dades.
+    /App.jsx: Component principal que inicialitza la ruta i renderitza els components.
+   
+
+4. Funcions implementades
+Les principals funcions implementades són:
+
+    - Gestió d'exercicis: Els usuaris poden afegir, editar i eliminar exercicis.
+
+    - Gestió de sèries i repeticions: Permet als usuaris registrar sèries amb pes i repeticions per cada exercici.   
+    
+    - Emmagatzematge d'imatges: Els usuaris poden carregar imatges dels exercicis que volen guardar.
+    - Autenticació d'usuaris: S'ha implementat un sistema bàsic d'autenticació mitjançant Firebase per permetre l'accés a les funcionalitats de gestió d'exercicis.
+    - Visualització dels exercicis: Els exercicis guardats es poden veure amb els seus detalls, com el nom, les sèries i les descripcions.
+
+5. Millores i futures implementacions
+Algunes possibles millores i implementacions futures per al projecte podrien ser:
+
+    - Integració amb dispositius de fitness: Sincronitzar les dades d'exercicis amb dispositius de fitness com smartwatches per a un registre més automàtic.
+    - Funcionalitat de compartir exercicis: Permetre als usuaris compartir els seus exercicis amb altres usuaris de la web.
+    - Filtres de cerca avançats: Implementar un sistema de filtres per buscar exercicis segons el pes utilitzat, etc.
+    - Millorar el sistema d'autenticació: Implementar més opcions de registre i autenticació, com la connexió mitjançant comptes socials.

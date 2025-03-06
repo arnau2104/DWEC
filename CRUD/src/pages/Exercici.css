@@ -67,7 +67,15 @@
  #container .exercici .borrar:hover {
   scale: 1.2;
   cursor: pointer;
- } 
+ }
+ 
+ .exercici .imatge-exercici {
+  width:auto;
+ max-height: 540px;
+ justify-self: center;
+ border-radius: 10px;
+ margin-bottom: 20px;
+ }
 
 
  #container .confirmacio-borrar-exercici {

@@ -15,20 +15,6 @@ export default function LogIn({usuariActiu,setUsuariActiu}) {
 
     
 
-    // useEffect(()=>{
-    //     onSnapshot(collection(db,"usuaris"),  (querySnapshot)=> {
-    //         let array = [];   
-    //      querySnapshot.forEach((doc) => {
-    //              const exercici = doc.data();
-    //              array.push([doc.id,exercici]);                 
-    //      }    
-    //    )
-   
-    //    array.sort((a,b) => +a[0] - +b[0]);
-    //    setUsuaris(array);
-    //    setCargat(true);
-    //  });
-    // },[])
     
     const crearUsuari = (e)=> {
         e.preventDefault();

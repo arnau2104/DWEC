@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from 'react'
-import {useParams} from 'react-router-dom';
+import {useParams,useNavigate} from 'react-router-dom';
 import { agafarExerciciPerId } from '../firebase.js'
+import './Exercici.css'
 
 export default function Exercici() {
 
@@ -9,7 +10,9 @@ export default function Exercici() {
   }
   const [exercici, setExercici] = useState(null);
 
-  const [cargat,setCargat] = useState(false);
+  const [cargat,setCargat] = useState(true);
+
+  const navigate = useNavigate();
 
  
   const parametres = useParams();
@@ -38,16 +41,25 @@ export default function Exercici() {
     <div>
       {/* <p>Exercici {parametres.id} </p> */}
 
-    {cargat && exercici  && 
+    {cargat && exercici && 
      <div key={exercici[0]} className="exercici">
       <h1>{exercici[1].nom}</h1>
+      <img className='imatge-exercici' src={exercici[1].imatge} />
       <div className='card'>
         <h2>{primeraLletraMajuscula(exercici[1].muscolTreballat)}</h2>
         <ul>Series: {JSON.parse(exercici[1].series).map((serie,index)=>
           <li key={index}>{`${serie[0]} x ${serie[1]}`}</li>
         )}</ul>
+        { exercici[1].descripcio && <h2>Descripció:</h2> }
+        { exercici[1].descripcio && <p>{exercici[1].descripcio}</p> }
       </div>
     </div>    }
+
+    {!cargat && <p>Exercici no trobat, redirigint a pagina principal...</p>}
+    {!cargat &&   setTimeout(()=> {
+      navigate('/');
+    },1000)
+    }
 
     </div>
   )

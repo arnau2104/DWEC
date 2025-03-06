@@ -1,5 +1,43 @@
-Dia 1 17/02/2025: He creat la base de dades de Firebase i el projecte amb REACT, he creat els components Navbar(ont hi ha la barra de navegacio i ja puc navegar entre pagines), el component CrearExercici(on ja puc crear un exercici i que es guardi a la base de dades), i el component Exercicis(que ja hem llegeix els exercicis de la base de dades)
-DIa 2: Avui he implementat la funcio9 de editar noticies, he reutilitzat el component de crear noticies per poder editarles tambe
-Dia 3 20/02/2025: Avui he implementat el cercador de exercicis, pero tenc un problema amb el formulari de crear y editar exercicis
-Dia 4 26/02/2025: Avui he soluciona el problema que tenia amb el formulari de crear y modificar exercicis, i també he implementat la funcio de poder borrar exercicis
-Dia 5 05/03/2025: Avui he creat el component de log in, on puc iniciar sessio o crearme un usuari, tambe he actualitzar la consulta que agafa els exercicis perque nomes hem agafi els de el usuari que ha iniciat sessio, i tambe he fet que no pots crear exercicis sense tenir la sessio iniciada
+Dia 1 - 17/02/2025
+Avui he començat el projecte amb React i he configurat la base de dades amb Firebase. També he creat alguns dels components principals:
+
+Navbar: Conté la barra de navegació i ja permet moure's entre diferents pàgines del projecte.
+
+CrearExercici: Un formulari on es poden crear nous exercicis i guardar-los directament a la base de dades.
+
+Exercicis: Aquest component llegeix els exercicis de la base de dades i els mostra a l’usuari.
+
+Dia 2 - 18/02/2025
+Avui he implementat la funcionalitat d’editar exercicis. Per fer-ho, he aprofitat el component de creació d’exercicis i l’he adaptat perquè també es pugui utilitzar per editar, així no fa falta duplicar codi.
+
+Dia 3 - 20/02/2025
+He afegit una funció de cerca per als exercicis, així els usuaris poden trobar-los fàcilment introduin el text exacte que desitges cercar. No obstant això, he detectat alguns problemes amb el formulari de creació i edició d’exercicis que hauré de solucionar en els pròxims dies.
+
+Dia 4 - 26/02/2025
+Avui he solucionat el problema que tenia amb el formulari de creació i modificació d’exercicis. Ara funciona correctament sense errors. A més, he implementat la funcionalitat de borrar exercicis, permetent que els usuaris puguin eliminar els exercicis que vulguin
+
+Dia 5 - 01/03/2025
+Avui he desenvolupat el component de Login, que permet als usuaris iniciar sessió i registrar-se. També he fet alguns ajustos en la manera com es recuperen els exercicis des de la base de dades:
+
+Ara només es mostren els exercicis de l’usuari que ha iniciat sessió.
+He afegit una restricció perquè no es puguin crear exercicis sense haver iniciat sessió.
+
+Dia 6 - 01/03/2025
+Avui he afegit la opcio de introduir una imatge i una descripcio als exercicis, tambe he modificat el component exercici, adaptant-lo als nous canvis fets, mostrant la imatge, i descripcio en cas de seri
+
+Dia 7 - 06/03/2025
+Avui he refactoritzat la funcionalitat de cerca dinàmica, creant un component independent per gestionar-la millor i fer el codi més net i reutilitzable. A més, he millorat diversos missatges d’error i avisos, fent-los més clars i útils per als usuaris. Finalment, he fet alguns canvis en l’estil de la pàgina, ajustant colors i millorant especialment l’aspecte dels formularis perquè siguin més intuïtius i agradables a la vista.
+
+Problemes Trobats:
+    - Problema amb el formulari de creació i edició d'exercicis: en el moment de fusionar la creacio i la edicio de exercicis en un ,ateix components van sorgir el problema que si anaves a editar el exercici et funconaba be, pero si anaves acrear-lo no et carrgeava la pagina. 
+            Per solucionar-ho es va revisar el codi i es va trobar la solucio .
+
+Millores Implementades:
+   
+    - Sistema de log in: sistema que permet crear o iniciar sessio amb un usuario i que cada usuari tengui els seus exercicis
+
+    - Implementació d'imatges a els exercicis
+
+    - Implementació de icones per millorar l'estetica de la web
+
+    - Implementats  missatges d'error i avisos.

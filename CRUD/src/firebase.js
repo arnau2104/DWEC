@@ -21,13 +21,15 @@ export const guardarExercici = (nom,muscolTreballat,series,autor) => {
     addDoc(collection(db,"exercicis"), {nom,muscolTreballat,series,autor});
 }
 
-export const guardarExerciciAmbId = async (id,nom,muscolTreballat,series,autor) => {
+export const guardarExerciciAmbId = async (id,nom,muscolTreballat,series,autor,descripcio,imatge) => {
     try {
       await setDoc(doc(db, "exercicis", id), {
         nom,
         muscolTreballat,
         series,
-        autor
+        autor,
+        descripcio,
+        imatge
       });
       console.log("Task saved with custom ID:", id);
     } catch(error) {

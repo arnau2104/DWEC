@@ -14,6 +14,7 @@ function App() {
   const [cargado, setCargado] = useState(false);
   const [totsExercicis, setTotsExercicis] = useState([]);
   const [usuariActiu, setUsuariActiu] = useState([]);
+  const [contadorIdExercicis, setContadorIdExercicis] = useState([]);
     
   useEffect(()=>{
     onSnapshot(collection(db,"exercicis"),  (querySnapshot)=> {
@@ -33,10 +34,30 @@ function App() {
     setExercicis(array);
     setTotsExercicis(array)
     setCargado(true);
-  });
 
-  console.log(usuariActiu)
+    console.log(usuariActiu)
+
+  });
 },[usuariActiu]);
+
+
+
+
+
+  useEffect(()=> {
+    let array = [];  
+    onSnapshot(collection(db,"exercicis"),  (querySnapshot)=> {    
+   querySnapshot.forEach((doc) => {    
+           array.push(+doc.id) 
+             
+         }) 
+    array.sort((a,b) => +a - +b);
+   }                   
+ )
+ setContadorIdExercicis(array);  
+
+},[]);
+
 
 console.log("Primer vegada usuari actiu",usuariActiu)
 
@@ -46,10 +67,10 @@ console.log("Primer vegada usuari actiu",usuariActiu)
         {cargado && <Navbar cargado={cargado} exercicis={exercicis} setExercicis = {setExercicis} totsExercicis = {totsExercicis} usuariActiu={usuariActiu} setUsuariActiu={setUsuariActiu} /> }
         <Routes>
             <Route path='/' element={<Inici exercicis={exercicis}/>}></Route>
-          <Route path='/crearExercici' element={<FormExercici exercicis={exercicis} usuariActiu={usuariActiu} />} />
+          <Route path='/crearExercici' element={<FormExercici exercicis={exercicis} usuariActiu={usuariActiu} setContadorIdExercicis={setContadorIdExercicis} contadorIdExercicis={contadorIdExercicis}/>} />
           { cargado && usuariActiu && <Route path="/exercicis" element={<Exercicis exercicis={exercicis} usuariActiu={usuariActiu} />}></Route> }
           <Route path="/exercici/:id" element={<Exercici />}></Route>
-          <Route path='/editarExercici/:id' element={<FormExercici exercicis={exercicis} usuariActiu={usuariActiu}/>}></Route>
+          <Route path='/editarExercici/:id' element={<FormExercici exercicis={exercicis} usuariActiu={usuariActiu} setContadorIdExercicis={setContadorIdExercicis} contadorIdExercicis={contadorIdExercicis}/>}></Route>
           <Route path='/logIn' element={<LogIn  usuariActiu={usuariActiu} setUsuariActiu={setUsuariActiu}/>}></Route>
         </Routes>
         </BrowserRouter>
