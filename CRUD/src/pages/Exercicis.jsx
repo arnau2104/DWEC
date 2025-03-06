@@ -35,7 +35,18 @@ const borrarExercici = ()=> {
       <h2>Exercicis:</h2>
         <div id="container">
           {usuariActiu && usuariActiu.length == 0  && <p>Inicia sessió per poder veure els teus exercicis</p>}
-          {usuariActiu.length > 0 && exercicis &&  exercicis.length == 0 && <p>No tens exercicis creats encara...</p>}
+          {usuariActiu.length > 0 && exercicis &&  exercicis.length == 0 && <p>No tens exercicis creats encara...  </p>}
+          {usuariActiu.length > 0 && exercicis &&  exercicis.length == 0 && 
+          <NavLink to={'/crearExercici'} className='navLink'>
+            <div className="div-link-crear-noticia">
+              
+              <p>Crear Exercici</p>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="crear">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />     
+                </svg>
+            </div>
+            </NavLink>
+            }
           {exercicis && exercicis.length > 0 && exercicis.map(exercici => (
                       <div key={exercici[0]} className="card">
                           <div>

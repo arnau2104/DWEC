@@ -20,6 +20,27 @@
     scale: 1.2;
   }
 
+   .div-link-crear-noticia {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    width: 150px;
+    text-decoration: none;
+  }
+
+ .navLink {
+  text-decoration: none;
+ }
+   .div-link-crear-noticia .crear {
+    text-decoration: none;
+    width: 20px;
+    padding: 5px;
+    border-radius: 5px;
+    /* background-color: rgb(247, 191, 10); */
+    color: rgb(0, 0, 0);
+  }
+
+
  #container .card {
     display: flex;
     align-items: baseline;

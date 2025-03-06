@@ -1,7 +1,19 @@
+.div-form {
+  margin: 0;
+  padding: 0;
+}
 .exercici-form {
-    width: 480px;
-    margin: 60px auto;
-  }
+  width: 500px; 
+  margin: auto;
+  padding: 25px;
+  max-width: 600px;
+  margin: 100px auto; 
+  background-color: #fdfdff;;
+  border-radius: 10px;
+  border: 1px solid #e0e7ff; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+}
+
 .exercici-form label,
 .exercici-form input {
     display: block;
@@ -11,34 +23,40 @@
     padding: 10px;
     box-sizing: border-box;
     font-size: 1.2em;
-    border-radius: 4px;
+    border-radius: 6px;
+    color: #333; 
 }
-.exercici-form select {
-    display: block;
-    font-size: 1.2em;
-    padding: 10px;
-    width: 100%;
-    box-sizing: border-box;
-    margin: 10px auto;
-    border: 2px solid #000;
-    border-radius: 4px;
-   }
-.exercici-form button {
-    padding: 10px;
-    font-size: 16px;
-    flex-grow: 1;
-    width: 100%;
-  }
 
-  .exercici-form {
-    width: 500px; /* Ajusta según sea necesario */
-    margin: auto;
-    padding: 30px;
-    max-width: 600px;
-    margin: 200px auto;
-    background-color: whitesmoke;
-    border-radius: 10px;
-    border:  1px solid black;
+.exercici-form select {
+  display: block;
+  font-size: 1.2em;
+  padding: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 10px auto;
+  border-radius: 6px; 
+  background-color: #ffffff; 
+}
+
+.exercici-form button {
+  padding: 14px;
+  font-size: 16px;
+  flex-grow: 1;
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  background-color: #f39d09;; 
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.exercici-form button:hover {
+  background-color: #e9a20a;
+}
+
+.exercici-form .mes-series:hover {
+  background-color: #375ae7;; 
 }
 
 .exercici-form .serie {
@@ -49,10 +67,13 @@
 }
 
 .exercici-form .mes-series {
-  background-color: rgb(15, 30, 245);
-  color: aliceblue;
+  background-color: #4c6ef5;; 
+  color: #ffffff;
   width: 50%;
   border-radius: 6px;
+  padding: 10px 15px;
+  text-align: center;
+  font-weight: bold;
 }
 
 .contenedor-series {

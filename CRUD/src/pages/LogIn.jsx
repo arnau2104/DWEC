@@ -122,8 +122,8 @@ export default function LogIn({usuariActiu,setUsuariActiu}) {
         </label>
 
         <div className='btns-enviar'>
-            <button className='enviar' onClick={iniciarSessio}>Incia Sessió</button>
-            <button className='enviar' onClick={crearUsuari}>Crear Usuari</button>
+            <button className='enviar iniciar-sessio' onClick={iniciarSessio}>Incia Sessió</button>
+            <button className='enviar crear-usuari' onClick={crearUsuari}>Registrarse</button>
         </div>
 
 

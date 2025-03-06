@@ -1,6 +1,7 @@
 .App {
   max-width: 960px;
   margin: 0 auto;
+
 }
 .App nav {
   display: flex;
@@ -14,12 +15,23 @@
 .App nav a {
   color: #333;
   padding: 4px 10px;
+  text-decoration: none;
 }
 .App nav a.active {
   color: white;
-  background: #333;
+  background: #4c6ef5;
   text-decoration: none;
+  border-radius: 6px;
+  text-decoration: underline;
+  text-decoration-color: white; /* Color de la línea de subrayado */
+  text-decoration-thickness: 2px; /* Grosor de la línea */
+  text-decoration-skip-ink: none; /* No saltar el subrayado entre letras */
+  padding-bottom: 5px; /* Espacio entre el texto y la línea de subrayado */
+
 }
+
+
+
 
  .App .lupa {
   width: 25px;
@@ -57,8 +69,12 @@ align-self: center;
  /* width: 50px; */
  background-color: #333;
  color: aliceblue;
- padding: 4px;
+ padding: 10px;
  border-radius: 8px;
+}
+
+.App .div-sessio-iniciada button:hover {
+  background-color: #242424;
 }
 
 .App .div-sessio-iniciada button:hover {

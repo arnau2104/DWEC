@@ -13,6 +13,7 @@ export default function FormExercici({exercicis,usuariActiu}) {
     const paramId = parametres.id;
     const navigate = useNavigate();
     const [error,setError] = useState(false);
+    const [logInFet, setLogInFet] = useState(true);
     
 
     
@@ -117,7 +118,7 @@ export default function FormExercici({exercicis,usuariActiu}) {
 
   return (
 
-   <div>
+   <div className='div-form'>
     {error && <p>Exercici no trobat, redirigint a la pagina principal</p>}
       {!exercicis && !paramId && <p>Carregant...</p>}
       {(exercicis || paramId) && !error && 
@@ -155,6 +156,16 @@ export default function FormExercici({exercicis,usuariActiu}) {
             
         </form>
         }
+
+<div className="confirmacio-borrar-exercici">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="tancar-finestra" onClick={()=>setIdBorrar(null)}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                    <p>Estas segur que vols borrar l'exercici?
+                    Despres no podras recuperarlo</p>
+                    
+                    <button className="btn-confirmacio-borrar" onClick={()=> borrarExercici()}>Borrar</button>
+                  </div>
 
    </div>
      
