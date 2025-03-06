@@ -32,6 +32,8 @@
 .App #cercador {
 border-radius: 5px;
 padding: 5px;
+height: 1.2em;
+align-self: center;
 }
 
 .App .div-cercador {
@@ -46,6 +48,10 @@ padding: 5px;
   padding: 5px 10px;
   border-radius: 5px;
 }
+
+.App .div-sessio-iniciada p:first-child:hover {
+  cursor: pointer;
+} 
 
 .App .div-sessio-iniciada button {
  /* width: 50px; */

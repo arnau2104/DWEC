@@ -36,15 +36,17 @@ export default function Exercici() {
   
   return (
     <div>
-      <p>Exercici {parametres.id} </p>
+      {/* <p>Exercici {parametres.id} </p> */}
 
     {cargat && exercici  && 
-     <div key={exercici[0]} className="card">
-      <h2>{exercici[1].nom}</h2>
-      <p>{primeraLletraMajuscula(exercici[1].muscolTreballat)}</p>
-      <ul>Series: {JSON.parse(exercici[1].series).map((serie,index)=>
-        <li key={index}>{`${serie[0]} x ${serie[1]}`}</li>
-      )}</ul>
+     <div key={exercici[0]} className="exercici">
+      <h1>{exercici[1].nom}</h1>
+      <div className='card'>
+        <h2>{primeraLletraMajuscula(exercici[1].muscolTreballat)}</h2>
+        <ul>Series: {JSON.parse(exercici[1].series).map((serie,index)=>
+          <li key={index}>{`${serie[0]} x ${serie[1]}`}</li>
+        )}</ul>
+      </div>
     </div>    }
 
     </div>

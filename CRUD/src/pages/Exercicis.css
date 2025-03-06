@@ -1,4 +1,4 @@
-.exercici .card {
+.card  {
     padding: 20px;
     border: 1px solid #e4e4e4;
     border-radius: 8px;
@@ -6,27 +6,27 @@
     margin-bottom: 20px;
   }
 
-  .exercici .editar {
+  .card .editar {
     display: block;
   }
 
-  .exercici .veure-exercici  {
+  .card .veure-exercici  {
     width: 30px;
     color: black;
     position: relative;
   }
 
-  .exercici .veure-exercici:hover  {
+  .card .veure-exercici:hover  {
     scale: 1.2;
   }
 
- #container .exercici {
+ #container .card {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
   }
 
-  .exercici .div-svg .div-edit-delete .editar {
+  .card .div-svg .div-edit-delete .editar {
     text-decoration: none;
     width: 20px;
     padding: 5px;
@@ -35,12 +35,12 @@
     color: rgb(0, 0, 0);
   }
 
-  .exercici .editar:hover {
+  .card .editar:hover {
     scale: 1.2;
     background-color: rgb(236, 181, 0);
   }
 
- #container .exercici .div-svg {
+ #container .card .div-svg {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -49,14 +49,14 @@
   width: auto;
  }
 
-#container .exercici .div-edit-delete {
+#container .card .div-edit-delete {
   display: flex;
   flex-direction: row;
   justify-content: baseline;
   gap: 20px;
  }
 
- #container .exercici  .borrar {
+ #container .card  .borrar {
   width: 20px;
   background-color: #e63946;
   color: #333;
@@ -64,7 +64,7 @@
   border-radius: 5px;
  }
 
- #container .exercici .borrar:hover {
+ #container .card .borrar:hover {
   scale: 1.2;
   cursor: pointer;
  } 

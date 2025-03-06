@@ -67,13 +67,14 @@ export default function LogIn({usuariActiu,setUsuariActiu}) {
 
         onSnapshot(collection(db,"usuaris"),  (querySnapshot)=> {
            let logIn = false;  
-         querySnapshot.forEach((doc) => {
+           let usuariTrobat = null
+         querySnapshot.forEach(async (doc) => {
                 const usuari = doc.data();
                 // console.log(usuari.username , username , usuari.password ,password)
                 if(usuari.username == username && usuari.password == password) {
                      logIn = true;
                     setMissatge([0, 'Sessió Iniciada correctament!']);
-                     setUsuariActiu([`${doc.id}`,usuari]);
+                    usuariTrobat = [`${doc.id}`,usuari];
                     //  console.log(usuariActiu)
                     
                     
@@ -84,8 +85,13 @@ export default function LogIn({usuariActiu,setUsuariActiu}) {
        )
 
        if(logIn) {
+       
+            setUsuariActiu(usuariTrobat);
+            
         setTimeout(()=> {
+            
             navigate('/');
+
         },2000)
        }else {
          setMissatge([1, 'Usuari o Contrassenya incorrecte!!'])

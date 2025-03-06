@@ -1,9 +1,15 @@
 import { Link, NavLink } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { onSnapshot,collection,db,borrarExercicis } from "../firebase.js"
-import "./Exercici.css";
+import "./Exercicis.css";
 
-export default function Exercicis({exercicis}) {
+export default function Exercicis({exercicis,usuariActiu}) {
+  console.log("UsuariActiu",usuariActiu)
+
+
+  useEffect(()=>{
+    console.log("UsuariActiu",usuariActiu)
+  },[usuariActiu])
 
   const [idBorrar, setIdBorrar] = useState(false);
 
@@ -28,7 +34,9 @@ const borrarExercici = ()=> {
     <div>
       <h2>Exercicis:</h2>
         <div id="container">
-          {exercicis && exercicis.map(exercici => (
+          {usuariActiu && usuariActiu.length == 0  && <p>Inicia sessió per poder veure els teus exercicis</p>}
+          {usuariActiu.length > 0 && exercicis &&  exercicis.length == 0 && <p>No tens exercicis creats encara...</p>}
+          {exercicis && exercicis.length > 0 && exercicis.map(exercici => (
                       <div key={exercici[0]} className="card">
                           <div>
                               <h2>{exercici[1].nom}</h2>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { consultaPersonalitzada } from '../firebase.js';
 import { useEffect, useState } from 'react';
-import {BrowserRouter,NavLink,Routes,Route} from 'react-router-dom';
+import {BrowserRouter,NavLink,Routes,Route,useNavigate} from 'react-router-dom';
 import Inici from '../pages/Inici';
 import FormExercici from '../pages/FormExercici';
 import Exercicis from '../pages/Exercicis';
@@ -11,7 +11,11 @@ import LogIn from '../pages/LogIn.jsx';
 export default function Navbar({cargado,exercicis,setExercicis,totsExercicis,usuariActiu,setUsuariActiu}) {
   
   // console.log(totsExercicis);
+  const navigate = useNavigate();
 
+  // console.log("UsuariActiu",usuariActiu)
+
+  const [mostrarTancarSessio, setMostrarTancarSessio] = useState(false);
 
   const [mostrarInput,setMostrarInput] = useState(false);
   console.log(exercicis)
@@ -24,6 +28,7 @@ export default function Navbar({cargado,exercicis,setExercicis,totsExercicis,usu
     }else {
       setExercicis(totsExercicis);
     }
+    navigate('/exercicis');
    }
 
  const afegirInput = ()=> {
@@ -33,29 +38,36 @@ export default function Navbar({cargado,exercicis,setExercicis,totsExercicis,usu
      setMostrarInput(true);
   }
  }
+
+ const tancarSessio = ()=> {
+  setTimeout(()=> {
+    setUsuariActiu([]);
+  },1000)
+  
+ }
   
   
 
   return (
    
-        <BrowserRouter>
+       
         <nav>
           <h1>Gestor d'exercicis</h1>
          {cargado && <NavLink  to= "/">Inici</NavLink>}
-         {cargado && exercicis && <NavLink to="/exercicis">Exercicis</NavLink> }
+         {cargado &&  <NavLink to="/exercicis">Exercicis</NavLink> }
         {cargado &&  <NavLink to="/crearExercici">Crear Exercici</NavLink>  }
          <div className='div-cercador'>
-         {usuariActiu.length > 0 &&
+         {usuariActiu && usuariActiu.length > 1 &&
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="lupa" onClick={()=> afegirInput()}>
             <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
           </svg> }
        
           {mostrarInput && <input type="text" id="cercador" onInput ={(e)=>cercadorDinamic(e.target.value)}></input>}
 
-          {usuariActiu.length > 0 && 
+          {usuariActiu && usuariActiu.length > 1 && 
             <div className='div-sessio-iniciada'>
-              <p>Benvingut {usuariActiu[1].username}</p>
-              <button>Tancar Sessió</button>
+              <p onClick={()=>setMostrarTancarSessio(!mostrarTancarSessio)}>Benvingut {usuariActiu[1].username}</p>
+              { mostrarTancarSessio && <button onClick={()=>tancarSessio()}>Tancar Sessió</button>}
               </div>
           }
         
@@ -64,15 +76,7 @@ export default function Navbar({cargado,exercicis,setExercicis,totsExercicis,usu
        
      
         </nav>
-        <Routes>
-            <Route path='/' element={<Inici exercicis={exercicis}/>}></Route>
-          <Route path='/crearExercici' element={<FormExercici exercicis={exercicis} usuariActiu={usuariActiu} />} />
-          { cargado && <Route path="/exercicis" element={<Exercicis exercicis={exercicis}/>}></Route> }
-          <Route path="/exercici/:id" element={<Exercici />}></Route>
-          <Route path='/editarExercici/:id' element={<FormExercici exercicis={exercicis} usuariActiu={usuariActiu}/>}></Route>
-          <Route path='/logIn' element={<LogIn  usuariActiu={usuariActiu} setUsuariActiu={setUsuariActiu}/>}></Route>
-        </Routes>
-      </BrowserRouter>
+      
      
   )
 }
